@@ -1,0 +1,3512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<meta name="format-detection" content="telephone=no, email=no, address=no" />
+<meta name="theme-color" content="#0a0a1a" />
+<meta name="description" content="Nestorium Mobile - Binaural Manifestation Frequencies" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Nestorium" />
+<link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="../favicon.svg" />
+<title>Nestorium ✧ Manifestation</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Quicksand:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-deep: #0a0a1a;
+  --bg-card: rgba(20, 18, 35, 0.85);
+  --bg-glass: rgba(255, 255, 255, 0.03);
+  --accent-gold: #d4af37;
+  --accent-rose: #e8b4b8;
+  --accent-violet: #9b7ed9;
+  --accent-teal: #5ee7df;
+  --accent-cosmic: #7b68ee;
+  --text-primary: #f5f0e8;
+  --text-secondary: rgba(245, 240, 232, 0.7);
+  --text-muted: rgba(245, 240, 232, 0.4);
+  --glow-gold: rgba(212, 175, 55, 0.4);
+  --glow-violet: rgba(155, 126, 217, 0.5);
+  --glow-cosmic: rgba(123, 104, 238, 0.3);
+  --safe-top: env(safe-area-inset-top);
+  --safe-bottom: env(safe-area-inset-bottom);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: 'Quicksand', sans-serif;
+  background: var(--bg-deep);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: none;
+}
+
+/* Cosmic Background */
+.cosmic-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(ellipse at 20% 20%, rgba(155, 126, 217, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(94, 231, 223, 0.08) 0%, transparent 60%),
+    linear-gradient(180deg, #0a0a1a 0%, #12101f 50%, #0d0b18 100%);
+  z-index: 0;
+}
+
+/* Floating Particles Canvas */
+#particleCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Stars */
+.stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: #fff;
+  border-radius: 50%;
+  animation: twinkle 3s infinite ease-in-out;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* Main App Container */
+.app {
+  position: relative;
+  z-index: 10;
+  min-height: 100vh;
+  padding: calc(20px + var(--safe-top)) 16px calc(100px + var(--safe-bottom));
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.logo-symbol {
+  font-size: 28px;
+  background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-rose) 50%, var(--accent-violet) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+  0%, 100% { filter: drop-shadow(0 0 8px var(--glow-gold)); }
+  50% { filter: drop-shadow(0 0 15px var(--glow-violet)); }
+}
+
+.logo-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px;
+  font-weight: 300;
+  letter-spacing: 4px;
+  background: linear-gradient(135deg, var(--accent-gold), var(--text-primary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.tagline {
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* Affirmation Banner */
+.affirmation-banner {
+  background: linear-gradient(135deg, rgba(155, 126, 217, 0.2), rgba(212, 175, 55, 0.15));
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 16px;
+  padding: 16px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.affirmation-banner::before {
+  content: '✧';
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--accent-gold);
+  opacity: 0.5;
+  font-size: 18px;
+}
+
+.affirmation-banner::after {
+  content: '✧';
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--accent-gold);
+  opacity: 0.5;
+  font-size: 18px;
+}
+
+.affirmation-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  font-style: italic;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+.affirmation-refresh {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px;
+  transition: color 0.3s;
+}
+
+.affirmation-refresh:active {
+  color: var(--accent-gold);
+}
+
+/* Active Frequency Display */
+.frequency-display {
+  background: var(--bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 24px;
+  text-align: center;
+  backdrop-filter: blur(20px);
+  position: relative;
+  overflow: hidden;
+}
+
+.frequency-display::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+  opacity: 0.5;
+}
+
+.frequency-orb {
+  width: 140px;
+  height: 140px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(155, 126, 217, 0.4), rgba(94, 231, 223, 0.2), transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  animation: orb-breathe 4s ease-in-out infinite;
+}
+
+.frequency-orb.playing {
+  animation: orb-pulse 1.5s ease-in-out infinite, orb-breathe 4s ease-in-out infinite;
+}
+
+@keyframes orb-breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes orb-pulse {
+  0%, 100% { box-shadow: 0 0 30px var(--glow-violet), 0 0 60px var(--glow-cosmic); }
+  50% { box-shadow: 0 0 50px var(--glow-violet), 0 0 100px var(--glow-cosmic); }
+}
+
+.orb-ring {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1px solid rgba(155, 126, 217, 0.3);
+  animation: ring-rotate 20s linear infinite;
+}
+
+.orb-ring::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  background: var(--accent-violet);
+  border-radius: 50%;
+  transform: translateX(-50%);
+}
+
+@keyframes ring-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.orb-inner {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 40%, rgba(212, 175, 55, 0.6), rgba(232, 180, 184, 0.3), transparent);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.3);
+}
+
+.freq-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.freq-unit {
+  font-size: 10px;
+  color: var(--text-secondary);
+  letter-spacing: 2px;
+}
+
+.frequency-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: var(--accent-gold);
+}
+
+.frequency-delta {
+  font-size: 14px;
+  color: var(--accent-teal);
+  margin-bottom: 12px;
+}
+
+.frequency-benefits {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Waveform Visualizer */
+.waveform-container {
+  margin-top: 16px;
+  height: 50px;
+  position: relative;
+  overflow: hidden;
+}
+
+#waveformCanvas {
+  width: 100%;
+  height: 100%;
+}
+
+/* Transport Controls */
+.transport {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.transport-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.play-btn {
+  background: linear-gradient(135deg, var(--accent-violet), var(--accent-cosmic));
+  color: white;
+  box-shadow: 0 4px 20px var(--glow-violet);
+}
+
+.play-btn.active {
+  background: linear-gradient(135deg, var(--accent-gold), var(--accent-rose));
+  box-shadow: 0 4px 30px var(--glow-gold);
+}
+
+.play-btn:active {
+  transform: scale(0.95);
+}
+
+.stop-btn {
+  background: var(--bg-glass);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--text-secondary);
+}
+
+.stop-btn:active {
+  background: rgba(255,255,255,0.1);
+}
+
+/* Tab Navigation */
+.tab-nav {
+  display: flex;
+  background: var(--bg-glass);
+  border-radius: 16px;
+  padding: 4px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 12px 8px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: 'Quicksand', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.tab-btn.active {
+  background: linear-gradient(135deg, rgba(155, 126, 217, 0.3), rgba(94, 231, 223, 0.2));
+  color: var(--text-primary);
+}
+
+.tab-icon {
+  font-size: 20px;
+}
+
+/* Preset Cards Container */
+.presets-container {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 20px;
+  scrollbar-width: none;
+}
+
+.presets-container::-webkit-scrollbar {
+  display: none;
+}
+
+.preset-section {
+  display: none;
+}
+
+.preset-section.active {
+  display: block;
+}
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+  padding-left: 4px;
+  letter-spacing: 1px;
+}
+
+/* Preset Cards */
+.preset-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.preset-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 20px;
+  padding: 16px 18px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+.preset-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.02) 100%);
+  pointer-events: none;
+}
+
+.preset-card:active {
+  transform: scale(0.98);
+  border-color: var(--accent-violet);
+}
+
+.preset-card.active {
+  border-color: var(--accent-gold);
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(155, 126, 217, 0.1));
+}
+
+.preset-card.active::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-gold), var(--accent-violet));
+}
+
+.preset-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.preset-icon {
+  font-size: 28px;
+  filter: drop-shadow(0 0 8px currentColor);
+}
+
+.preset-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.preset-delta {
+  margin-left: auto;
+  font-size: 13px;
+  color: var(--accent-teal);
+  font-weight: 600;
+}
+
+.preset-description {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.preset-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.preset-tag {
+  font-size: 10px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.05);
+  color: var(--text-muted);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.preset-tag.primary {
+  background: linear-gradient(135deg, rgba(155, 126, 217, 0.2), rgba(94, 231, 223, 0.15));
+  color: var(--accent-teal);
+  border-color: rgba(94, 231, 223, 0.2);
+}
+
+/* Share Button */
+.share-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(255,255,255,0.08);
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: var(--text-muted);
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  z-index: 10;
+}
+
+.share-btn:active {
+  background: var(--accent-gold);
+  color: var(--bg-deep);
+}
+
+/* Journey Cards */
+.journey-card {
+  background: linear-gradient(135deg, rgba(123, 104, 238, 0.15), rgba(212, 175, 55, 0.08));
+  border: 1px solid rgba(123, 104, 238, 0.2);
+  border-radius: 20px;
+  padding: 18px;
+  margin-bottom: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.journey-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.journey-icon {
+  font-size: 32px;
+}
+
+.journey-info {
+  flex: 1;
+}
+
+.journey-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.journey-duration {
+  font-size: 12px;
+  color: var(--accent-gold);
+}
+
+.journey-description {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.journey-phases {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.phase-tag {
+  font-size: 9px;
+  padding: 3px 8px;
+  border-radius: 10px;
+  font-weight: 500;
+}
+
+.phase-tag.theta { background: rgba(147, 112, 219, 0.3); color: #b794f6; }
+.phase-tag.alpha { background: rgba(94, 231, 223, 0.3); color: #5ee7df; }
+.phase-tag.delta { background: rgba(99, 102, 241, 0.3); color: #a5b4fc; }
+.phase-tag.beta { background: rgba(232, 180, 184, 0.3); color: #e8b4b8; }
+.phase-tag.schumann { background: rgba(212, 175, 55, 0.3); color: #d4af37; }
+
+.journey-start-btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--accent-violet), var(--accent-cosmic));
+  color: white;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 12px;
+  transition: all 0.3s;
+}
+
+.journey-start-btn:active {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+
+/* Session Timer */
+.session-timer {
+  background: var(--bg-glass);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 16px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.session-label {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.session-time {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--accent-gold);
+  letter-spacing: 2px;
+}
+
+.session-streak {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--accent-rose);
+}
+
+/* Share Modal */
+.share-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(10, 10, 26, 0.95);
+  z-index: 1000;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  backdrop-filter: blur(20px);
+}
+
+.share-modal.active {
+  display: flex;
+}
+
+.share-card-preview {
+  width: 100%;
+  max-width: 320px;
+  aspect-ratio: 9/16;
+  border-radius: 24px;
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.share-card-preview.style-cosmic {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+}
+
+.share-card-preview.style-mystic {
+  background: linear-gradient(135deg, #2d1b4e 0%, #1f1131 50%, #0a0612 100%);
+}
+
+.share-card-preview.style-golden {
+  background: linear-gradient(135deg, #2b2215 0%, #1a1510 50%, #0f0d08 100%);
+}
+
+.share-card-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  letter-spacing: 3px;
+  margin-bottom: 30px;
+  color: rgba(255,255,255,0.8);
+}
+
+.share-card-freq {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 72px;
+  font-weight: 300;
+  margin-bottom: 8px;
+}
+
+.share-card-unit {
+  font-size: 18px;
+  letter-spacing: 4px;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 24px;
+}
+
+.share-card-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.share-card-benefit {
+  font-size: 14px;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.6;
+  max-width: 240px;
+}
+
+.share-card-footer {
+  position: absolute;
+  bottom: 24px;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.4);
+}
+
+.share-style-picker {
+  display: flex;
+  gap: 12px;
+  margin: 24px 0;
+}
+
+.style-option {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.style-option.active {
+  border-color: var(--accent-gold);
+  transform: scale(1.1);
+}
+
+.style-option.cosmic { background: linear-gradient(135deg, #1a1a2e, #0f3460); }
+.style-option.mystic { background: linear-gradient(135deg, #2d1b4e, #0a0612); }
+.style-option.golden { background: linear-gradient(135deg, #2b2215, #0f0d08); }
+
+.share-actions {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  max-width: 320px;
+}
+
+.share-action-btn {
+  flex: 1;
+  padding: 14px;
+  border: none;
+  border-radius: 14px;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.share-action-btn.primary {
+  background: linear-gradient(135deg, var(--accent-violet), var(--accent-cosmic));
+  color: white;
+}
+
+.share-action-btn.secondary {
+  background: var(--bg-glass);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--text-secondary);
+}
+
+.share-close {
+  position: absolute;
+  top: calc(24px + var(--safe-top));
+  right: 24px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 28px;
+  cursor: pointer;
+}
+
+/* Floating Action Indicator */
+.headphones-reminder {
+  position: fixed;
+  bottom: calc(100px + var(--safe-bottom));
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(212, 175, 55, 0.15);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-size: 11px;
+  color: var(--accent-gold);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 100;
+  animation: float-remind 3s ease-in-out infinite;
+}
+
+@keyframes float-remind {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-5px); }
+}
+
+/* Bottom Navigation */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(10, 10, 26, 0.95);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255,255,255,0.05);
+  padding: 12px 24px calc(12px + var(--safe-bottom));
+  display: flex;
+  justify-content: space-around;
+  z-index: 100;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 10px;
+  cursor: pointer;
+  transition: all 0.3s;
+  padding: 8px 16px;
+}
+
+.nav-item.active {
+  color: var(--accent-gold);
+}
+
+.nav-icon {
+  font-size: 24px;
+}
+
+/* Loading States */
+.loading-shimmer {
+  background: linear-gradient(90deg, var(--bg-card) 0%, rgba(255,255,255,0.05) 50%, var(--bg-card) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Journey Progress Overlay */
+.journey-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(10, 10, 26, 0.98);
+  z-index: 500;
+  display: none;
+  flex-direction: column;
+  padding: calc(40px + var(--safe-top)) 24px calc(40px + var(--safe-bottom));
+}
+
+.journey-overlay.active {
+  display: flex;
+}
+
+.journey-progress-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.journey-progress-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+
+.journey-progress-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+
+.journey-progress-phase {
+  color: var(--accent-teal);
+  font-size: 14px;
+}
+
+.journey-visual {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.journey-orb {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(155, 126, 217, 0.5), rgba(94, 231, 223, 0.2), transparent);
+  animation: journey-pulse 3s ease-in-out infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+@keyframes journey-pulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 40px var(--glow-violet); }
+  50% { transform: scale(1.1); box-shadow: 0 0 80px var(--glow-violet), 0 0 120px var(--glow-cosmic); }
+}
+
+.journey-orb-freq {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 36px;
+  font-weight: 500;
+}
+
+.journey-orb-delta {
+  font-size: 14px;
+  color: var(--accent-gold);
+}
+
+.journey-progress-bar {
+  margin-top: 32px;
+}
+
+.journey-time {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.journey-bar-track {
+  height: 4px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.journey-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-violet), var(--accent-gold));
+  border-radius: 2px;
+  transition: width 0.5s ease;
+}
+
+.journey-phase-markers {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  pointer-events: none;
+}
+
+.journey-phase-marker {
+  position: absolute;
+  top: -8px;
+  width: 2px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.4);
+  transform: translateX(-50%);
+}
+
+.journey-phase-marker::after {
+  content: attr(data-phase-name);
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 8px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  opacity: 0.7;
+}
+
+.journey-phase-marker.active {
+  background: var(--accent-gold);
+}
+
+.journey-phase-marker.active::after {
+  color: var(--accent-gold);
+  opacity: 1;
+}
+
+.journey-phases-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.journey-phase-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  color: var(--text-muted);
+  padding: 4px 8px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 8px;
+}
+
+.journey-phase-legend-item.current {
+  background: linear-gradient(135deg, rgba(155, 126, 217, 0.3), rgba(94, 231, 223, 0.2));
+  color: var(--text-primary);
+  border: 1px solid var(--accent-violet);
+}
+
+.journey-phase-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-muted);
+}
+
+.journey-phase-legend-item.current .journey-phase-dot {
+  background: var(--accent-teal);
+  box-shadow: 0 0 6px var(--accent-teal);
+}
+
+.journey-stop-btn {
+  margin-top: 32px;
+  padding: 16px;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 16px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: 'Quicksand', sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* Toast Notifications */
+.toast {
+  position: fixed;
+  bottom: calc(120px + var(--safe-bottom));
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--bg-card);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 16px;
+  padding: 12px 20px;
+  font-size: 13px;
+  color: var(--text-primary);
+  z-index: 1000;
+  opacity: 0;
+  transition: all 0.4s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+.toast-icon {
+  font-size: 18px;
+}
+
+/* Utility Classes */
+.hidden { display: none !important; }
+.fade-in { animation: fadeIn 0.4s ease; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* View Pages */
+.view-page {
+  display: none;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.view-page.active {
+  display: flex;
+}
+
+/* Favorites View */
+.favorites-empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-muted);
+}
+
+.favorites-empty-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.favorites-empty-text {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.favorite-btn {
+  position: absolute;
+  top: 12px;
+  right: 48px;
+  background: rgba(255,255,255,0.08);
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: var(--text-muted);
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  z-index: 10;
+}
+
+.favorite-btn.favorited {
+  color: #ff6b9d;
+  background: rgba(255, 107, 157, 0.2);
+}
+
+.favorite-btn:active {
+  transform: scale(1.2);
+}
+
+/* Progress View */
+.progress-header {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.progress-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+
+.progress-subtitle {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.stat-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+  padding: 16px;
+  text-align: center;
+}
+
+.stat-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px;
+  font-weight: 500;
+  color: var(--accent-gold);
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.history-section {
+  margin-top: 16px;
+}
+
+.history-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  margin-bottom: 12px;
+  color: var(--text-secondary);
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.history-item {
+  background: var(--bg-glass);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.history-icon {
+  font-size: 24px;
+}
+
+.history-info {
+  flex: 1;
+}
+
+.history-name {
+  font-size: 14px;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.history-meta {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.history-duration {
+  font-size: 12px;
+  color: var(--accent-teal);
+  font-weight: 500;
+}
+
+.history-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+/* Dynamic Journey Cards */
+.dynamic-journey-card {
+  background: linear-gradient(135deg, rgba(94, 231, 223, 0.12), rgba(212, 175, 55, 0.08));
+  border: 1px solid rgba(94, 231, 223, 0.2);
+  border-radius: 20px;
+  padding: 18px;
+  margin-bottom: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.dynamic-journey-card .journey-icon {
+  filter: drop-shadow(0 0 10px currentColor);
+}
+
+.phase-tag.cosmic { background: rgba(123, 104, 238, 0.3); color: #a78bfa; }
+.phase-tag.symphony { background: rgba(232, 180, 184, 0.3); color: #e8b4b8; }
+.phase-tag.tidal { background: rgba(94, 231, 223, 0.3); color: #5ee7df; }
+.phase-tag.aurora { background: rgba(251, 191, 36, 0.3); color: #fbbf24; }
+.phase-tag.earth { background: rgba(34, 197, 94, 0.3); color: #22c55e; }
+
+.journey-type-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.journey-type-tab {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-family: 'Quicksand', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.journey-type-tab.active {
+  background: linear-gradient(135deg, rgba(155, 126, 217, 0.2), rgba(94, 231, 223, 0.15));
+  border-color: var(--accent-violet);
+  color: var(--text-primary);
+}
+
+/* Melodic Bliss Cards */
+.melodic-card {
+  background: linear-gradient(135deg, rgba(232, 180, 184, 0.12), rgba(212, 175, 55, 0.08));
+  border: 1px solid rgba(232, 180, 184, 0.25);
+  border-radius: 20px;
+  padding: 18px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.melodic-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, 
+    rgba(232, 180, 184, 0.6), 
+    rgba(212, 175, 55, 0.6), 
+    rgba(155, 126, 217, 0.6),
+    rgba(94, 231, 223, 0.6)
+  );
+  background-size: 200% 100%;
+  animation: melodic-shimmer 3s ease-in-out infinite;
+}
+
+@keyframes melodic-shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.melodic-card:active {
+  transform: scale(0.98);
+}
+
+.melodic-card.active {
+  border-color: var(--accent-rose);
+  box-shadow: 0 0 20px rgba(232, 180, 184, 0.3);
+}
+
+.melodic-card .preset-icon {
+  font-size: 32px;
+  filter: drop-shadow(0 0 10px rgba(232, 180, 184, 0.5));
+}
+
+.melodic-info {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.melodic-badge {
+  font-size: 9px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(232, 180, 184, 0.2), rgba(212, 175, 55, 0.15));
+  color: var(--accent-rose);
+  border: 1px solid rgba(232, 180, 184, 0.3);
+}
+
+.melodic-badge.dopamine {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.2), rgba(212, 175, 55, 0.15));
+  color: #fbbf24;
+  border-color: rgba(251, 191, 36, 0.3);
+}
+
+.melodic-badge.harmony {
+  background: linear-gradient(135deg, rgba(155, 126, 217, 0.2), rgba(94, 231, 223, 0.15));
+  color: var(--accent-violet);
+  border-color: rgba(155, 126, 217, 0.3);
+}
+
+.melodic-wave-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  overflow: hidden;
+  opacity: 0.3;
+}
+
+.melodic-wave {
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 200%;
+  height: 20px;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 10px,
+    rgba(232, 180, 184, 0.3) 10px,
+    rgba(232, 180, 184, 0.3) 20px
+  );
+  animation: wave-flow 4s linear infinite;
+}
+
+@keyframes wave-flow {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.melodic-card.active .melodic-wave-indicator {
+  opacity: 0.6;
+}
+
+.melodic-card.playing .melodic-wave {
+  animation-duration: 1s;
+}
+</style>
+</head>
+<body>
+
+<div class="cosmic-bg"></div>
+<canvas id="particleCanvas"></canvas>
+<div class="stars" id="stars"></div>
+
+<div class="app">
+  <header class="header">
+    <div class="logo">
+      <span class="logo-symbol">✧</span>
+      <span class="logo-text">NESTORIUM</span>
+    </div>
+    <div class="tagline">Frequency • Intention • Manifestation</div>
+  </header>
+
+  <!-- HOME VIEW -->
+  <div class="view-page active" id="homeView">
+  
+  <div class="affirmation-banner" id="affirmationBanner">
+    <p class="affirmation-text" id="affirmationText">"I am aligned with the frequency of abundance and love."</p>
+    <button class="affirmation-refresh" id="refreshAffirmation">↻</button>
+  </div>
+
+  <div class="frequency-display" id="frequencyDisplay">
+    <div class="frequency-orb" id="frequencyOrb">
+      <div class="orb-ring"></div>
+      <div class="orb-inner">
+        <div class="freq-value" id="freqValue">—</div>
+        <div class="freq-unit">Hz Δ</div>
+      </div>
+    </div>
+    <div class="frequency-name" id="freqName">Select a Frequency</div>
+    <div class="frequency-delta" id="freqDelta">Choose a preset to begin</div>
+    <div class="frequency-benefits" id="freqBenefits">Binaural beats create gentle frequency differences between ears to guide your brainwaves into desired states.</div>
+    
+    <div class="waveform-container">
+      <canvas id="waveformCanvas"></canvas>
+    </div>
+    
+    <div class="transport">
+      <button class="transport-btn stop-btn" id="stopBtn">■</button>
+      <button class="transport-btn play-btn" id="playBtn">▶</button>
+    </div>
+  </div>
+
+  <div class="session-timer" id="sessionTimer">
+    <div>
+      <div class="session-label">Session Time</div>
+      <div class="session-time" id="sessionTime">00:00</div>
+    </div>
+    <div class="session-streak">
+      <span>🔥</span>
+      <span id="streakCount">0</span> day streak
+    </div>
+  </div>
+
+  <nav class="tab-nav">
+    <button class="tab-btn active" data-tab="brainwaves">
+      <span class="tab-icon">🧠</span>
+      <span>Brainwaves</span>
+    </button>
+    <button class="tab-btn" data-tab="journeys">
+      <span class="tab-icon">✨</span>
+      <span>Journeys</span>
+    </button>
+    <button class="tab-btn" data-tab="dynamic">
+      <span class="tab-icon">🌌</span>
+      <span>Dynamic</span>
+    </button>
+    <button class="tab-btn" data-tab="solfeggio">
+      <span class="tab-icon">🔮</span>
+      <span>Solfeggio</span>
+    </button>
+    <button class="tab-btn" data-tab="melodic">
+      <span class="tab-icon">🎵</span>
+      <span>Melodic</span>
+    </button>
+  </nav>
+
+  <div class="presets-container">
+    
+    <!-- Brainwaves Tab -->
+    <div class="preset-section active" id="brainwaves-section">
+      <h3 class="section-title">✦ Brainwave States</h3>
+      <div class="preset-grid" id="brainwavePresets">
+        <!-- Generated by JS -->
+      </div>
+    </div>
+
+    <!-- Journeys Tab -->
+    <div class="preset-section" id="journeys-section">
+      <h3 class="section-title">✦ Guided Journeys</h3>
+      <div id="journeyCards">
+        <!-- Generated by JS -->
+      </div>
+    </div>
+
+    <!-- Dynamic Binaural Tab -->
+    <div class="preset-section" id="dynamic-section">
+      <h3 class="section-title">✦ Dynamic Binaural Journeys</h3>
+      <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 16px;">Harmonic interval progressions with musical relationships</p>
+      <div id="dynamicJourneyCards">
+        <!-- Generated by JS -->
+      </div>
+    </div>
+
+    <!-- Solfeggio Tab -->
+    <div class="preset-section" id="solfeggio-section">
+      <h3 class="section-title">✦ Sacred Frequencies</h3>
+      <div class="preset-grid" id="solfeggioPresets">
+        <!-- Generated by JS -->
+      </div>
+    </div>
+
+    <!-- Melodic Bliss Tab -->
+    <div class="preset-section" id="melodic-section">
+      <h3 class="section-title">✦ Melodic Bliss</h3>
+      <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 16px;">Gentle harmonic frequencies for dopamine release & deep relaxation</p>
+      <div class="preset-grid" id="melodicPresets">
+        <!-- Generated by JS -->
+      </div>
+    </div>
+
+  </div>
+  </div><!-- end homeView -->
+
+  <!-- FAVORITES VIEW -->
+  <div class="view-page" id="favoritesView">
+    <div class="progress-header">
+      <h2 class="progress-title">💜 Your Favorites</h2>
+      <p class="progress-subtitle">Tap the heart on any preset to save it here</p>
+    </div>
+    <div class="preset-grid" id="favoritesGrid">
+      <!-- Generated by JS -->
+    </div>
+    <div class="favorites-empty" id="favoritesEmpty">
+      <div class="favorites-empty-icon">💜</div>
+      <p class="favorites-empty-text">No favorites yet!<br>Tap the ♡ on any preset to add it here.</p>
+    </div>
+  </div>
+
+  <!-- PROGRESS VIEW -->
+  <div class="view-page" id="progressView">
+    <div class="progress-header">
+      <h2 class="progress-title">📊 Your Progress</h2>
+      <p class="progress-subtitle">Track your manifestation journey</p>
+    </div>
+    
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-value" id="totalSessions">0</div>
+        <div class="stat-label">Total Sessions</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="totalMinutes">0</div>
+        <div class="stat-label">Minutes</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="currentStreak">0</div>
+        <div class="stat-label">Day Streak</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="longestStreak">0</div>
+        <div class="stat-label">Best Streak</div>
+      </div>
+    </div>
+
+    <div class="history-section">
+      <h3 class="history-title">Recent Sessions</h3>
+      <div class="history-list" id="historyList">
+        <!-- Generated by JS -->
+      </div>
+      <div class="history-empty" id="historyEmpty">
+        No sessions yet. Start your first frequency experience!
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="headphones-reminder" id="headphonesReminder">
+  <span>🎧</span>
+  <span>Headphones recommended for binaural effect</span>
+</div>
+
+<nav class="bottom-nav">
+  <button class="nav-item active" data-nav="home">
+    <span class="nav-icon">🏠</span>
+    <span>Home</span>
+  </button>
+  <button class="nav-item" data-nav="favorites">
+    <span class="nav-icon">💜</span>
+    <span>Favorites</span>
+  </button>
+  <button class="nav-item" data-nav="history">
+    <span class="nav-icon">📊</span>
+    <span>Progress</span>
+  </button>
+</nav>
+
+<!-- Share Modal -->
+<div class="share-modal" id="shareModal">
+  <button class="share-close" id="shareClose">×</button>
+  <div class="share-card-preview style-cosmic" id="shareCardPreview">
+    <div class="share-card-logo">NESTORIUM</div>
+    <div class="share-card-freq" id="shareFreq">10</div>
+    <div class="share-card-unit">Hz BINAURAL</div>
+    <div class="share-card-name" id="shareName">Calm Focus</div>
+    <div class="share-card-benefit" id="shareBenefit">Alpha waves for relaxed alertness and mental clarity</div>
+    <div class="share-card-footer">@nestorium.app</div>
+  </div>
+  <div class="share-style-picker">
+    <div class="style-option cosmic active" data-style="cosmic"></div>
+    <div class="style-option mystic" data-style="mystic"></div>
+    <div class="style-option golden" data-style="golden"></div>
+  </div>
+  <div class="share-actions">
+    <button class="share-action-btn secondary" id="shareCancel">Cancel</button>
+    <button class="share-action-btn primary" id="shareDownload">Save to Photos</button>
+  </div>
+</div>
+
+<!-- Journey Progress Overlay -->
+<div class="journey-overlay" id="journeyOverlay">
+  <div class="journey-progress-header">
+    <div class="journey-progress-icon" id="journeyProgressIcon">✨</div>
+    <h2 class="journey-progress-title" id="journeyProgressTitle">Manifestation</h2>
+    <div class="journey-progress-phase" id="journeyProgressPhase">Phase 1: Centering</div>
+  </div>
+  <div class="journey-visual">
+    <div class="journey-orb">
+      <div class="journey-orb-freq" id="journeyOrbFreq">10 Hz</div>
+      <div class="journey-orb-delta" id="journeyOrbDelta">Alpha Waves</div>
+    </div>
+  </div>
+  <div class="journey-progress-bar">
+    <div class="journey-time">
+      <span id="journeyElapsed">00:00</span>
+      <span id="journeyTotal">18:00</span>
+    </div>
+    <div class="journey-bar-track" style="position: relative;">
+      <div class="journey-bar-fill" id="journeyBarFill" style="width: 0%"></div>
+      <div class="journey-phase-markers" id="journeyPhaseMarkers">
+        <!-- Phase markers will be generated here -->
+      </div>
+    </div>
+    <div class="journey-phases-legend" id="journeyPhasesLegend">
+      <!-- Phase legend will be generated here -->
+    </div>
+  </div>
+  <button class="journey-stop-btn" id="journeyStopBtn">End Journey</button>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <span class="toast-icon">✓</span>
+  <span class="toast-text" id="toastText">Frequency activated</span>
+</div>
+
+<script>
+(() => {
+  // ===== CONFIGURATION =====
+  
+  const AFFIRMATIONS = [
+    "I am aligned with the frequency of abundance and love.",
+    "My thoughts create my reality. I choose positivity.",
+    "I am a powerful creator, manifesting my dreams.",
+    "The universe conspires in my favor.",
+    "I release all resistance and allow abundance to flow.",
+    "Every cell in my body vibrates with energy and health.",
+    "I am worthy of all the good that comes to me.",
+    "My mind is calm, my heart is open, my spirit is free.",
+    "I trust the timing of my life's journey.",
+    "I radiate love, and love returns to me multiplied.",
+    "I am connected to the infinite intelligence of the universe.",
+    "My energy attracts my tribe and my blessings.",
+    "I am the architect of my reality.",
+    "Peace flows through me with every breath.",
+    "I am grateful for the abundance that surrounds me."
+  ];
+
+  const BRAINWAVE_PRESETS = [
+    { id: 'delta1', name: 'Deep Sleep', delta: 1, icon: '🌙', left: 80, right: 81, 
+      desc: 'Delta waves for profound restorative sleep and healing.', 
+      tags: ['Sleep', 'Healing', 'Recovery'], category: 'delta' },
+    { id: 'delta2', name: 'Sleep', delta: 2, icon: '😴', left: 90, right: 92,
+      desc: 'Gentle delta rhythm for falling asleep naturally.',
+      tags: ['Sleep', 'Rest'], category: 'delta' },
+    { id: 'delta3', name: 'Lucid Dreams', delta: 3, icon: '🔮', left: 100, right: 103,
+      desc: 'Delta-theta border for conscious dream exploration.',
+      tags: ['Dreams', 'Consciousness'], category: 'delta' },
+    { id: 'theta5', name: 'Deep Meditation', delta: 5, icon: '🧘', left: 110, right: 115,
+      desc: 'Theta waves for deep meditation and inner peace.',
+      tags: ['Meditation', 'Calm', 'Spiritual'], category: 'theta' },
+    { id: 'theta6', name: 'Meditation', delta: 6, icon: '🕯️', left: 120, right: 126,
+      desc: 'Classic theta for meditation and emotional healing.',
+      tags: ['Meditation', 'Healing'], category: 'theta' },
+    { id: 'theta7', name: 'Creativity', delta: 7, icon: '🎨', left: 130, right: 137,
+      desc: 'Theta waves unlock creative flow and intuition.',
+      tags: ['Creativity', 'Intuition', 'Flow'], category: 'theta' },
+    { id: 'alpha8', name: 'Light Relaxation', delta: 8, icon: '🌿', left: 140, right: 148,
+      desc: 'Alpha waves for gentle relaxation and stress relief.',
+      tags: ['Relaxation', 'Calm'], category: 'alpha' },
+    { id: 'alpha10', name: 'Calm Focus', delta: 10, icon: '🎯', left: 150, right: 160,
+      desc: 'Alpha state for relaxed alertness and clarity.',
+      tags: ['Focus', 'Clarity', 'Calm'], category: 'alpha' },
+    { id: 'alpha12', name: 'Relaxed Alert', delta: 12, icon: '✨', left: 160, right: 172,
+      desc: 'Upper alpha for flow state and present awareness.',
+      tags: ['Flow', 'Awareness'], category: 'alpha' },
+    { id: 'beta15', name: 'Mental Clarity', delta: 15, icon: '💎', left: 170, right: 185,
+      desc: 'Beta waves for clear thinking and problem-solving.',
+      tags: ['Clarity', 'Thinking'], category: 'beta' },
+    { id: 'beta18', name: 'Focus', delta: 18, icon: '🔥', left: 180, right: 198,
+      desc: 'Active beta for concentration and productivity.',
+      tags: ['Focus', 'Productivity'], category: 'beta' },
+    { id: 'beta20', name: 'Concentration', delta: 20, icon: '⚡', left: 190, right: 210,
+      desc: 'High beta for intense focus and mental energy.',
+      tags: ['Concentration', 'Energy'], category: 'beta' },
+    { id: 'gamma40', name: 'Peak Performance', delta: 40, icon: '🌟', left: 210, right: 250,
+      desc: 'Gamma waves for peak cognitive function and insight.',
+      tags: ['Peak', 'Insight', 'Genius'], category: 'gamma' }
+  ];
+
+  const SOLFEGGIO_PRESETS = [
+    { id: 'solf174', freq: 174, name: 'Foundation', icon: '🏔️',
+      desc: 'Pain reduction and security. Grounding earth frequency.',
+      tags: ['Grounding', 'Security'], color: '#c41e3a' },
+    { id: 'solf285', freq: 285, name: 'Quantum Field', icon: '⚛️',
+      desc: 'Restructures energy field. Cellular regeneration.',
+      tags: ['Healing', 'Regeneration'], color: '#ff4500' },
+    { id: 'solf396', freq: 396, name: 'Liberation', icon: '🔓',
+      desc: 'Releases guilt and fear. Root chakra activation.',
+      tags: ['Release', 'Root Chakra'], color: '#dc143c' },
+    { id: 'solf417', freq: 417, name: 'Transmutation', icon: '🔄',
+      desc: 'Facilitates change. Clears traumatic experiences.',
+      tags: ['Change', 'Transformation'], color: '#ff8c00' },
+    { id: 'solf528', freq: 528, name: 'Love Frequency', icon: '💚',
+      desc: 'DNA repair and miracles. The frequency of love.',
+      tags: ['Love', 'Miracles', 'DNA'], color: '#228b22' },
+    { id: 'solf639', freq: 639, name: 'Connection', icon: '💙',
+      desc: 'Harmonizes relationships. Heart chakra resonance.',
+      tags: ['Relationships', 'Heart'], color: '#4169e1' },
+    { id: 'solf741', freq: 741, name: 'Awakening', icon: '💜',
+      desc: 'Awakens intuition. Throat chakra expression.',
+      tags: ['Intuition', 'Expression'], color: '#4b0082' },
+    { id: 'solf852', freq: 852, name: 'Spiritual Order', icon: '👁️',
+      desc: 'Returns to spiritual order. Third eye opening.',
+      tags: ['Spiritual', 'Third Eye'], color: '#8a2be2' },
+    { id: 'solf963', freq: 963, name: 'Divine Connection', icon: '👑',
+      desc: 'Pure tone of light. Crown chakra activation.',
+      tags: ['Divine', 'Crown Chakra'], color: '#ffd700' },
+    { id: 'schumann', freq: 7.83, name: 'Earth Resonance', icon: '🌍',
+      desc: 'Schumann resonance - Earth\'s heartbeat frequency.',
+      tags: ['Earth', 'Grounding', 'Natural'], color: '#2e8b57' }
+  ];
+
+  const JOURNEYS = [
+    { id: 'manifestation', name: 'Manifestation', icon: '✨', duration: 18,
+      desc: 'Access deep theta states for visualization and intention setting.',
+      phases: [
+        { name: 'Centering', hz: 10, type: 'Alpha', duration: 4 },
+        { name: 'Heart Opening', hz: 8, type: 'Theta', duration: 4 },
+        { name: 'Vision State', hz: 7, type: 'Theta', duration: 5 },
+        { name: 'Schumann Anchor', hz: 7.83, type: 'Earth', duration: 3 },
+        { name: 'Integration', hz: 10, type: 'Alpha', duration: 2 }
+      ]},
+    { id: 'deep-calm', name: 'Deep Calm', icon: '🌊', duration: 15,
+      desc: 'Transition from busy mind to peaceful theta state.',
+      phases: [
+        { name: 'Settling', hz: 14, type: 'Beta', duration: 3 },
+        { name: 'Alpha Bridge', hz: 10, type: 'Alpha', duration: 4 },
+        { name: 'Pre-Theta', hz: 8, type: 'Theta', duration: 4 },
+        { name: 'Deep Theta', hz: 6, type: 'Theta', duration: 4 }
+      ]},
+    { id: 'morning-awakening', name: 'Morning Awakening', icon: '🌅', duration: 10,
+      desc: 'Start your day with mental clarity and natural energy.',
+      phases: [
+        { name: 'Gentle Wake', hz: 8, type: 'Alpha', duration: 2 },
+        { name: 'Mind Clear', hz: 10, type: 'Alpha', duration: 3 },
+        { name: 'Energy Rise', hz: 14, type: 'Beta', duration: 3 },
+        { name: 'Ready State', hz: 18, type: 'Beta', duration: 2 }
+      ]},
+    { id: 'anxiety-release', name: 'Anxiety Release', icon: '💜', duration: 15,
+      desc: 'Soothe an anxious mind and calm your nervous system.',
+      phases: [
+        { name: 'Acknowledge', hz: 12, type: 'Alpha', duration: 2 },
+        { name: 'Breath Sync', hz: 10, type: 'Alpha', duration: 4 },
+        { name: 'Release', hz: 7, type: 'Theta', duration: 4 },
+        { name: 'Peace', hz: 6, type: 'Theta', duration: 3 },
+        { name: 'Ground', hz: 8, type: 'Alpha', duration: 2 }
+      ]},
+    { id: 'sleep-prep', name: 'Sleep Preparation', icon: '🌙', duration: 20,
+      desc: 'Gradual descent into deep delta for restful sleep.',
+      phases: [
+        { name: 'Unwind', hz: 10, type: 'Alpha', duration: 5 },
+        { name: 'Deep Calm', hz: 6, type: 'Theta', duration: 5 },
+        { name: 'Pre-Sleep', hz: 3, type: 'Delta', duration: 5 },
+        { name: 'Deep Delta', hz: 1, type: 'Delta', duration: 5 }
+      ]},
+    { id: 'creative-flow', name: 'Creative Flow', icon: '🎨', duration: 15,
+      desc: 'Access the alpha-theta border where creativity flourishes.',
+      phases: [
+        { name: 'Relax', hz: 10, type: 'Alpha', duration: 3 },
+        { name: 'Flow State', hz: 7.5, type: 'Theta', duration: 5 },
+        { name: 'Deep Flow', hz: 7, type: 'Theta', duration: 4 },
+        { name: 'Integration', hz: 8, type: 'Alpha', duration: 3 }
+      ]}
+  ];
+
+  // Dynamic Binaural Journeys - Musical interval based
+  const DYNAMIC_JOURNEYS = [
+    { id: 'cosmic-drift', name: 'Cosmic Drift', icon: '🚀', duration: 12,
+      desc: 'Float through space on harmonic intervals. Perfect fifths and major thirds create weightless consonance.',
+      phases: [
+        { name: 'Perfect 5ths', baseHz: 200, interval: 'fifth', type: 'Cosmic', duration: 2.5 },
+        { name: 'Octave Rise', baseHz: 220, interval: 'octave', type: 'Cosmic', duration: 2.5 },
+        { name: 'Minor 3rds', baseHz: 180, interval: 'minor3rd', type: 'Cosmic', duration: 2.5 },
+        { name: 'Major 6ths', baseHz: 200, interval: 'major6th', type: 'Cosmic', duration: 2.5 },
+        { name: 'Unison', baseHz: 200, interval: 'unison', type: 'Cosmic', duration: 2 }
+      ]},
+    { id: 'neural-symphony', name: 'Neural Symphony', icon: '🎻', duration: 10,
+      desc: 'A true symphony using musical harmony. Orchestral progressions through intervals.',
+      phases: [
+        { name: 'Major 3rd Prelude', baseHz: 220, interval: 'major3rd', type: 'Symphony', duration: 2.5 },
+        { name: '5th Allegro', baseHz: 200, interval: 'fifth', type: 'Symphony', duration: 2.5 },
+        { name: '6th Adagio', baseHz: 180, interval: 'major6th', type: 'Symphony', duration: 2.5 },
+        { name: 'Octave Finale', baseHz: 200, interval: 'octave', type: 'Symphony', duration: 2.5 }
+      ]},
+    { id: 'tidal-waves', name: 'Tidal Waves', icon: '🌊', duration: 14,
+      desc: 'Ride ocean rhythms through consonant intervals. Perfect fourths and fifths ebb and flow.',
+      phases: [
+        { name: 'Unison Shore', baseHz: 180, interval: 'unison', type: 'Tidal', duration: 2.5 },
+        { name: '4th & 5th Swell', baseHz: 200, interval: 'fourth', type: 'Tidal', duration: 3 },
+        { name: 'Minor 3rd Depths', baseHz: 160, interval: 'minor3rd', type: 'Tidal', duration: 3 },
+        { name: 'Major 6th Drift', baseHz: 180, interval: 'major6th', type: 'Tidal', duration: 3 },
+        { name: '5th Return', baseHz: 200, interval: 'fifth', type: 'Tidal', duration: 2.5 }
+      ]},
+    { id: 'aurora-borealis', name: 'Aurora Borealis', icon: '🌈', duration: 11,
+      desc: 'Shimmer through the harmonic spectrum like northern lights dancing across your perception.',
+      phases: [
+        { name: '5th Twilight', baseHz: 200, interval: 'fifth', type: 'Aurora', duration: 2 },
+        { name: '3rd Emergence', baseHz: 220, interval: 'major3rd', type: 'Aurora', duration: 2.5 },
+        { name: '6th Curtains', baseHz: 200, interval: 'major6th', type: 'Aurora', duration: 2.5 },
+        { name: 'Octave Peak', baseHz: 180, interval: 'octave', type: 'Aurora', duration: 2 },
+        { name: 'Unison Dawn', baseHz: 200, interval: 'unison', type: 'Aurora', duration: 2 }
+      ]},
+    { id: 'zen-garden', name: 'Zen Garden', icon: '🧘', duration: 13,
+      desc: 'Tranquil harmonic intervals for spacious mindfulness and inner stillness.',
+      phases: [
+        { name: 'Unison Ground', baseHz: 174, interval: 'unison', type: 'Earth', duration: 2.5 },
+        { name: '4th Stillness', baseHz: 200, interval: 'fourth', type: 'Earth', duration: 3 },
+        { name: '5th Space', baseHz: 200, interval: 'fifth', type: 'Earth', duration: 3 },
+        { name: '6th Reflection', baseHz: 180, interval: 'major6th', type: 'Earth', duration: 2.5 },
+        { name: 'Unison Return', baseHz: 174, interval: 'unison', type: 'Earth', duration: 2 }
+      ]},
+    { id: 'heart-opening', name: 'Heart Opening', icon: '🌸', duration: 14,
+      desc: 'Warm harmonic progressions centered on major thirds and sixths for emotional flow.',
+      phases: [
+        { name: 'Unison Center', baseHz: 200, interval: 'unison', type: 'Tidal', duration: 2.5 },
+        { name: '3rd Warmth', baseHz: 220, interval: 'major3rd', type: 'Tidal', duration: 3 },
+        { name: '6th Expansion', baseHz: 200, interval: 'major6th', type: 'Tidal', duration: 3 },
+        { name: '5th Release', baseHz: 180, interval: 'fifth', type: 'Tidal', duration: 3 },
+        { name: '3rd Integration', baseHz: 200, interval: 'major3rd', type: 'Tidal', duration: 2.5 }
+      ]},
+    { id: 'phoenix-rising', name: 'Phoenix Rising', icon: '🔥', duration: 12,
+      desc: 'Transformational journey from stillness to empowerment through ascending intervals.',
+      phases: [
+        { name: 'Unison Ashes', baseHz: 160, interval: 'unison', type: 'Aurora', duration: 2 },
+        { name: '3rd Ember', baseHz: 180, interval: 'major3rd', type: 'Aurora', duration: 2.5 },
+        { name: '5th Flame', baseHz: 200, interval: 'fifth', type: 'Aurora', duration: 3 },
+        { name: 'Octave Soar', baseHz: 220, interval: 'octave', type: 'Aurora', duration: 2.5 },
+        { name: '5th Radiance', baseHz: 240, interval: 'fifth', type: 'Aurora', duration: 2 }
+      ]}
+  ];
+
+  // Musical interval ratios
+  const INTERVALS = {
+    unison: 1,
+    octave: 2,
+    fifth: 1.5,
+    fourth: 4/3,
+    major3rd: 1.25,
+    minor3rd: 1.2,
+    major6th: 5/3,
+    minor6th: 1.6
+  };
+
+  // Melodic Bliss Presets - Dopamine boosting harmonic frequencies
+  const MELODIC_PRESETS = [
+    { id: 'golden-wave', name: 'Golden Wave', icon: '🌊',
+      desc: 'Gentle 10Hz alpha waves with golden ratio harmonics. Promotes natural dopamine flow and blissful relaxation.',
+      leftHz: 200, rightHz: 210, 
+      harmonics: [1, 1.618], // Golden ratio
+      modulation: { type: 'gentle', rate: 0.1, depth: 2 },
+      tags: ['Dopamine', 'Harmony', 'Bliss'], color: '#fbbf24' },
+    
+    { id: 'serotonin-sunset', name: 'Serotonin Sunset', icon: '🌅',
+      desc: 'Warm 7.83Hz Schumann resonance blend. Syncs with Earth\'s frequency for deep contentment.',
+      leftHz: 174, rightHz: 181.83,
+      harmonics: [1, 1.5],
+      modulation: { type: 'breathing', rate: 0.066, depth: 3 },
+      tags: ['Serotonin', 'Grounding', 'Peace'], color: '#f97316' },
+    
+    { id: 'euphoria-drift', name: 'Euphoria Drift', icon: '✨',
+      desc: 'Floating 8Hz alpha-theta border with perfect fifth harmony. Gateway to natural euphoria.',
+      leftHz: 160, rightHz: 168,
+      harmonics: [1, 1.5, 2],
+      modulation: { type: 'drift', rate: 0.05, depth: 1.5 },
+      tags: ['Euphoria', 'Float', 'Alpha-Theta'], color: '#ec4899' },
+    
+    { id: 'pleasure-cascade', name: 'Pleasure Cascade', icon: '💎',
+      desc: 'Multi-layered 10-12Hz alpha waves cascade through reward centers. Pure sonic bliss.',
+      leftHz: 180, rightHz: 190,
+      harmonics: [1, 1.25, 1.5],
+      modulation: { type: 'cascade', rate: 0.08, depth: 4 },
+      tags: ['Dopamine', 'Cascade', 'Reward'], color: '#8b5cf6' },
+    
+    { id: 'velvet-embrace', name: 'Velvet Embrace', icon: '🌸',
+      desc: 'Ultra-soft 6Hz theta with major third harmony. Like a warm embrace for your brain.',
+      leftHz: 150, rightHz: 156,
+      harmonics: [1, 1.25],
+      modulation: { type: 'gentle', rate: 0.04, depth: 2 },
+      tags: ['Comfort', 'Theta', 'Embrace'], color: '#f472b6' },
+    
+    { id: 'aurora-bliss', name: 'Aurora Bliss', icon: '🌈',
+      desc: 'Dancing 9Hz alpha with color-like harmonic layers. Visual cortex activation for inner light.',
+      leftHz: 170, rightHz: 179,
+      harmonics: [1, 1.33, 1.5, 2],
+      modulation: { type: 'shimmer', rate: 0.12, depth: 3 },
+      tags: ['Visual', 'Dancing', 'Light'], color: '#06b6d4' },
+    
+    { id: 'endorphin-flow', name: 'Endorphin Flow', icon: '🏃',
+      desc: '111Hz carrier with 10Hz binaural. Known for beta-endorphin release and runner\'s high feeling.',
+      leftHz: 111, rightHz: 121,
+      harmonics: [1],
+      modulation: { type: 'pulse', rate: 0.1, depth: 2 },
+      tags: ['Endorphin', 'Energy', 'Flow'], color: '#22c55e' },
+    
+    { id: 'honey-drip', name: 'Honey Drip', icon: '🍯',
+      desc: 'Slow 4Hz delta-theta with sweet overtones. Thick, warm, and deeply soothing brain massage.',
+      leftHz: 140, rightHz: 144,
+      harmonics: [1, 1.25, 1.5],
+      modulation: { type: 'slow', rate: 0.025, depth: 2 },
+      tags: ['Sweet', 'Slow', 'Deep'], color: '#f59e0b' },
+    
+    { id: 'cosmic-massage', name: 'Cosmic Massage', icon: '💆',
+      desc: 'Pulsing 7-10Hz sweep with harmonic overtones. Like gentle fingers massaging your mind.',
+      leftHz: 165, rightHz: 172,
+      harmonics: [1, 1.5, 2, 3],
+      modulation: { type: 'massage', rate: 0.07, depth: 5 },
+      tags: ['Massage', 'Pulsing', 'Relaxation'], color: '#a855f7' },
+    
+    { id: 'bliss-cocoon', name: 'Bliss Cocoon', icon: '🦋',
+      desc: 'Enveloping 8Hz alpha with layered perfect fifths. Wrap yourself in pure harmonic bliss.',
+      leftHz: 196, rightHz: 204,
+      harmonics: [1, 1.5, 2.25],
+      modulation: { type: 'envelop', rate: 0.03, depth: 1.5 },
+      tags: ['Cocoon', 'Wrap', 'Safe'], color: '#d946ef' },
+    
+    { id: 'dopamine-fountain', name: 'Dopamine Fountain', icon: '⛲',
+      desc: 'Bubbling 12Hz high-alpha with ascending harmonics. Fountain of natural reward chemicals.',
+      leftHz: 200, rightHz: 212,
+      harmonics: [1, 1.125, 1.25, 1.5],
+      modulation: { type: 'bubble', rate: 0.15, depth: 3 },
+      tags: ['Dopamine', 'Bubbling', 'Reward'], color: '#eab308' },
+    
+    { id: 'zen-garden-melody', name: 'Zen Garden', icon: '🎍',
+      desc: 'Minimalist 5Hz deep theta with sparse overtones. Japanese garden tranquility for the mind.',
+      leftHz: 130, rightHz: 135,
+      harmonics: [1, 2],
+      modulation: { type: 'minimal', rate: 0.02, depth: 1 },
+      tags: ['Zen', 'Minimal', 'Tranquil'], color: '#84cc16' }
+  ];
+
+  // ===== STATE =====
+  let audioCtx = null;
+  let oscL = null, oscR = null;
+  let gainL = null, gainR = null;
+  let panL = null, panR = null;
+  let isPlaying = false;
+  let currentPreset = null;
+  let currentJourney = null;
+  let journeyInterval = null;
+  let journeyStartTime = 0;
+  let sessionStartTime = null;
+  let sessionInterval = null;
+  let analyser = null;
+  let waveformData = null;
+  let isDynamicJourney = false;
+  let currentView = 'home';
+
+  // ===== STORAGE HELPERS =====
+  function getFavorites() {
+    try {
+      return JSON.parse(localStorage.getItem('nestorium_favorites') || '[]');
+    } catch { return []; }
+  }
+
+  function saveFavorites(favorites) {
+    localStorage.setItem('nestorium_favorites', JSON.stringify(favorites));
+  }
+
+  function isFavorite(id) {
+    return getFavorites().includes(id);
+  }
+
+  function toggleFavorite(id, type) {
+    const favorites = getFavorites();
+    const fullId = `${type}:${id}`;
+    const index = favorites.indexOf(fullId);
+    if (index > -1) {
+      favorites.splice(index, 1);
+      showToast('Removed from favorites', '💔');
+    } else {
+      favorites.push(fullId);
+      showToast('Added to favorites!', '💜');
+    }
+    saveFavorites(favorites);
+    updateFavoriteButtons();
+    renderFavorites();
+  }
+
+  function getSessionHistory() {
+    try {
+      return JSON.parse(localStorage.getItem('nestorium_history') || '[]');
+    } catch { return []; }
+  }
+
+  function saveSession(preset, durationSeconds) {
+    const history = getSessionHistory();
+    history.unshift({
+      id: preset.id || preset.name,
+      name: preset.name,
+      icon: preset.icon,
+      duration: durationSeconds,
+      timestamp: Date.now(),
+      type: preset.freq ? 'solfeggio' : (preset.delta ? 'brainwave' : 'journey')
+    });
+    // Keep last 50 sessions
+    if (history.length > 50) history.pop();
+    localStorage.setItem('nestorium_history', JSON.stringify(history));
+    updateProgressStats();
+  }
+
+  function getProgressStats() {
+    const history = getSessionHistory();
+    const totalSessions = history.length;
+    const totalMinutes = Math.round(history.reduce((sum, s) => sum + (s.duration || 0), 0) / 60);
+    const streak = parseInt(localStorage.getItem('nestorium_streak') || '0');
+    const longestStreak = parseInt(localStorage.getItem('nestorium_longest_streak') || '0');
+    return { totalSessions, totalMinutes, streak, longestStreak };
+  }
+
+  function updateProgressStats() {
+    const stats = getProgressStats();
+    document.getElementById('totalSessions').textContent = stats.totalSessions;
+    document.getElementById('totalMinutes').textContent = stats.totalMinutes;
+    document.getElementById('currentStreak').textContent = stats.streak;
+    document.getElementById('longestStreak').textContent = stats.longestStreak;
+  }
+
+  // ===== DOM ELEMENTS =====
+  const playBtn = document.getElementById('playBtn');
+  const stopBtn = document.getElementById('stopBtn');
+  const frequencyOrb = document.getElementById('frequencyOrb');
+  const freqValue = document.getElementById('freqValue');
+  const freqName = document.getElementById('freqName');
+  const freqDelta = document.getElementById('freqDelta');
+  const freqBenefits = document.getElementById('freqBenefits');
+  const affirmationText = document.getElementById('affirmationText');
+  const sessionTime = document.getElementById('sessionTime');
+  const waveformCanvas = document.getElementById('waveformCanvas');
+  const waveformCtx = waveformCanvas.getContext('2d');
+  const shareModal = document.getElementById('shareModal');
+  const journeyOverlay = document.getElementById('journeyOverlay');
+  const toast = document.getElementById('toast');
+
+  // ===== PARTICLE SYSTEM =====
+  const particleCanvas = document.getElementById('particleCanvas');
+  const particleCtx = particleCanvas.getContext('2d');
+  let particles = [];
+
+  function initParticles() {
+    particleCanvas.width = window.innerWidth;
+    particleCanvas.height = window.innerHeight;
+    particles = [];
+    for (let i = 0; i < 50; i++) {
+      particles.push({
+        x: Math.random() * particleCanvas.width,
+        y: Math.random() * particleCanvas.height,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        size: Math.random() * 2 + 0.5,
+        alpha: Math.random() * 0.5 + 0.1,
+        hue: Math.random() * 60 + 240 // Purple to blue range
+      });
+    }
+  }
+
+  function animateParticles() {
+    particleCtx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
+    particles.forEach(p => {
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.x < 0) p.x = particleCanvas.width;
+      if (p.x > particleCanvas.width) p.x = 0;
+      if (p.y < 0) p.y = particleCanvas.height;
+      if (p.y > particleCanvas.height) p.y = 0;
+      
+      particleCtx.beginPath();
+      particleCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      particleCtx.fillStyle = `hsla(${p.hue}, 70%, 70%, ${p.alpha})`;
+      particleCtx.fill();
+    });
+    requestAnimationFrame(animateParticles);
+  }
+
+  // ===== STARS =====
+  function createStars() {
+    const container = document.getElementById('stars');
+    for (let i = 0; i < 100; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.top = Math.random() * 100 + '%';
+      star.style.animationDelay = Math.random() * 3 + 's';
+      star.style.opacity = Math.random() * 0.5 + 0.2;
+      container.appendChild(star);
+    }
+  }
+
+  // ===== AUDIO ENGINE =====
+  function ensureAudio() {
+    if (!audioCtx) {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      
+      // Create analyzer for waveform
+      analyser = audioCtx.createAnalyser();
+      analyser.fftSize = 256;
+      waveformData = new Uint8Array(analyser.frequencyBinCount);
+    }
+    if (audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+  }
+
+  function createOscillators(leftHz, rightHz) {
+    ensureAudio();
+    
+    // Clean up existing
+    stopOscillators();
+    
+    // Left oscillator
+    oscL = audioCtx.createOscillator();
+    oscL.type = 'sine';
+    oscL.frequency.value = leftHz;
+    gainL = audioCtx.createGain();
+    gainL.gain.value = 0.2;
+    panL = audioCtx.createStereoPanner();
+    panL.pan.value = -1;
+    oscL.connect(gainL).connect(panL).connect(analyser).connect(audioCtx.destination);
+    
+    // Right oscillator
+    oscR = audioCtx.createOscillator();
+    oscR.type = 'sine';
+    oscR.frequency.value = rightHz;
+    gainR = audioCtx.createGain();
+    gainR.gain.value = 0.2;
+    panR = audioCtx.createStereoPanner();
+    panR.pan.value = 1;
+    oscR.connect(gainR).connect(panR).connect(analyser).connect(audioCtx.destination);
+    
+    oscL.start();
+    oscR.start();
+  }
+
+  function stopOscillators() {
+    if (oscL) {
+      try { oscL.stop(); oscL.disconnect(); } catch(e) {}
+      oscL = null;
+    }
+    if (oscR) {
+      try { oscR.stop(); oscR.disconnect(); } catch(e) {}
+      oscR = null;
+    }
+  }
+
+  function setFrequencies(leftHz, rightHz) {
+    if (oscL && oscR) {
+      oscL.frequency.setValueAtTime(leftHz, audioCtx.currentTime);
+      oscR.frequency.setValueAtTime(rightHz, audioCtx.currentTime);
+    }
+  }
+
+  // ===== WAVEFORM VISUALIZATION =====
+  function drawWaveform() {
+    if (!analyser || !isPlaying) {
+      waveformCtx.clearRect(0, 0, waveformCanvas.width, waveformCanvas.height);
+      return;
+    }
+    
+    waveformCanvas.width = waveformCanvas.offsetWidth * 2;
+    waveformCanvas.height = waveformCanvas.offsetHeight * 2;
+    
+    analyser.getByteTimeDomainData(waveformData);
+    
+    waveformCtx.clearRect(0, 0, waveformCanvas.width, waveformCanvas.height);
+    
+    const gradient = waveformCtx.createLinearGradient(0, 0, waveformCanvas.width, 0);
+    gradient.addColorStop(0, 'rgba(155, 126, 217, 0.8)');
+    gradient.addColorStop(0.5, 'rgba(94, 231, 223, 0.8)');
+    gradient.addColorStop(1, 'rgba(212, 175, 55, 0.8)');
+    
+    waveformCtx.lineWidth = 2;
+    waveformCtx.strokeStyle = gradient;
+    waveformCtx.beginPath();
+    
+    const sliceWidth = waveformCanvas.width / waveformData.length;
+    let x = 0;
+    
+    for (let i = 0; i < waveformData.length; i++) {
+      const v = waveformData[i] / 128.0;
+      const y = v * waveformCanvas.height / 2;
+      
+      if (i === 0) {
+        waveformCtx.moveTo(x, y);
+      } else {
+        waveformCtx.lineTo(x, y);
+      }
+      x += sliceWidth;
+    }
+    
+    waveformCtx.stroke();
+    requestAnimationFrame(drawWaveform);
+  }
+
+  // ===== UI UPDATES =====
+  function updateDisplay(preset, isSolfeggio = false) {
+    if (isSolfeggio) {
+      freqValue.textContent = preset.freq;
+      freqName.textContent = preset.name;
+      freqDelta.textContent = 'Solfeggio Frequency';
+      freqBenefits.textContent = preset.desc;
+    } else {
+      freqValue.textContent = preset.delta;
+      freqName.textContent = preset.name;
+      freqDelta.textContent = `${getCategoryName(preset.category)} Wave`;
+      freqBenefits.textContent = preset.desc;
+    }
+  }
+
+  function getCategoryName(cat) {
+    const names = { delta: 'Delta', theta: 'Theta', alpha: 'Alpha', beta: 'Beta', gamma: 'Gamma' };
+    return names[cat] || cat;
+  }
+
+  function showToast(message, icon = '✓') {
+    const toastEl = document.getElementById('toast');
+    toastEl.querySelector('.toast-icon').textContent = icon;
+    toastEl.querySelector('.toast-text').textContent = message;
+    toastEl.classList.add('show');
+    setTimeout(() => toastEl.classList.remove('show'), 2500);
+  }
+
+  // ===== SESSION TIMER =====
+  function startSession() {
+    if (!sessionStartTime) {
+      sessionStartTime = Date.now();
+      sessionInterval = setInterval(updateSessionTime, 1000);
+    }
+  }
+
+  function updateSessionTime() {
+    if (!sessionStartTime) return;
+    const elapsed = Math.floor((Date.now() - sessionStartTime) / 1000);
+    const mins = Math.floor(elapsed / 60).toString().padStart(2, '0');
+    const secs = (elapsed % 60).toString().padStart(2, '0');
+    sessionTime.textContent = `${mins}:${secs}`;
+  }
+
+  function endSession() {
+    if (sessionInterval) {
+      clearInterval(sessionInterval);
+      sessionInterval = null;
+    }
+    
+    // Save session to history
+    if (sessionStartTime && currentPreset) {
+      const duration = Math.floor((Date.now() - sessionStartTime) / 1000);
+      if (duration >= 10) { // Only save if at least 10 seconds
+        saveSession(currentPreset, duration);
+      }
+    }
+    
+    sessionStartTime = null;
+  }
+
+  // ===== PRESET RENDERING =====
+  function renderBrainwavePresets() {
+    const container = document.getElementById('brainwavePresets');
+    container.innerHTML = BRAINWAVE_PRESETS.map(p => `
+      <div class="preset-card" data-preset="${p.id}">
+        <button class="favorite-btn ${isFavorite('brainwave:'+p.id) ? 'favorited' : ''}" data-fav="${p.id}" data-fav-type="brainwave">♡</button>
+        <button class="share-btn" data-share="${p.id}">↗</button>
+        <div class="preset-header">
+          <span class="preset-icon">${p.icon}</span>
+          <span class="preset-title">${p.name}</span>
+          <span class="preset-delta">${p.delta} Hz Δ</span>
+        </div>
+        <p class="preset-description">${p.desc}</p>
+        <div class="preset-tags">
+          ${p.tags.map((t, i) => `<span class="preset-tag ${i === 0 ? 'primary' : ''}">${t}</span>`).join('')}
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function renderSolfeggioPresets() {
+    const container = document.getElementById('solfeggioPresets');
+    container.innerHTML = SOLFEGGIO_PRESETS.map(p => `
+      <div class="preset-card solfeggio" data-solfeggio="${p.id}" style="border-left: 3px solid ${p.color}">
+        <button class="favorite-btn ${isFavorite('solfeggio:'+p.id) ? 'favorited' : ''}" data-fav="${p.id}" data-fav-type="solfeggio">♡</button>
+        <button class="share-btn" data-share-solf="${p.id}">↗</button>
+        <div class="preset-header">
+          <span class="preset-icon">${p.icon}</span>
+          <span class="preset-title">${p.name}</span>
+          <span class="preset-delta">${p.freq} Hz</span>
+        </div>
+        <p class="preset-description">${p.desc}</p>
+        <div class="preset-tags">
+          ${p.tags.map((t, i) => `<span class="preset-tag ${i === 0 ? 'primary' : ''}">${t}</span>`).join('')}
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function renderJourneys() {
+    const container = document.getElementById('journeyCards');
+    container.innerHTML = JOURNEYS.map(j => `
+      <div class="journey-card" data-journey="${j.id}">
+        <div class="journey-header">
+          <span class="journey-icon">${j.icon}</span>
+          <div class="journey-info">
+            <div class="journey-title">${j.name}</div>
+            <div class="journey-duration">${j.duration} minutes</div>
+          </div>
+        </div>
+        <p class="journey-description">${j.desc}</p>
+        <div class="journey-phases">
+          ${j.phases.map(p => `<span class="phase-tag ${p.type.toLowerCase()}">${p.hz}Hz ${p.type}</span>`).join('')}
+        </div>
+        <button class="journey-start-btn">Begin Journey</button>
+      </div>
+    `).join('');
+  }
+
+  function renderDynamicJourneys() {
+    const container = document.getElementById('dynamicJourneyCards');
+    container.innerHTML = DYNAMIC_JOURNEYS.map(j => `
+      <div class="dynamic-journey-card" data-dynamic-journey="${j.id}">
+        <div class="journey-header">
+          <span class="journey-icon">${j.icon}</span>
+          <div class="journey-info">
+            <div class="journey-title">${j.name}</div>
+            <div class="journey-duration">${j.duration} minutes</div>
+          </div>
+        </div>
+        <p class="journey-description">${j.desc}</p>
+        <div class="journey-phases">
+          ${j.phases.map(p => `<span class="phase-tag ${p.type.toLowerCase()}">${p.name}</span>`).join('')}
+        </div>
+        <button class="journey-start-btn">Begin Experience</button>
+      </div>
+    `).join('');
+  }
+
+  function renderFavorites() {
+    const container = document.getElementById('favoritesGrid');
+    const emptyEl = document.getElementById('favoritesEmpty');
+    const favorites = getFavorites();
+    
+    if (favorites.length === 0) {
+      container.innerHTML = '';
+      emptyEl.style.display = 'block';
+      return;
+    }
+    
+    emptyEl.style.display = 'none';
+    container.innerHTML = favorites.map(fav => {
+      const [type, id] = fav.split(':');
+      let preset;
+      if (type === 'brainwave') {
+        preset = BRAINWAVE_PRESETS.find(p => p.id === id);
+        if (!preset) return '';
+        return `
+          <div class="preset-card" data-preset="${preset.id}">
+            <button class="favorite-btn favorited" data-fav="${preset.id}" data-fav-type="brainwave">♡</button>
+            <div class="preset-header">
+              <span class="preset-icon">${preset.icon}</span>
+              <span class="preset-title">${preset.name}</span>
+              <span class="preset-delta">${preset.delta} Hz Δ</span>
+            </div>
+            <p class="preset-description">${preset.desc}</p>
+          </div>
+        `;
+      } else if (type === 'solfeggio') {
+        preset = SOLFEGGIO_PRESETS.find(p => p.id === id);
+        if (!preset) return '';
+        return `
+          <div class="preset-card solfeggio" data-solfeggio="${preset.id}" style="border-left: 3px solid ${preset.color}">
+            <button class="favorite-btn favorited" data-fav="${preset.id}" data-fav-type="solfeggio">♡</button>
+            <div class="preset-header">
+              <span class="preset-icon">${preset.icon}</span>
+              <span class="preset-title">${preset.name}</span>
+              <span class="preset-delta">${preset.freq} Hz</span>
+            </div>
+            <p class="preset-description">${preset.desc}</p>
+          </div>
+        `;
+      } else if (type === 'melodic') {
+        preset = MELODIC_PRESETS.find(p => p.id === id);
+        if (!preset) return '';
+        return `
+          <div class="melodic-card" data-melodic="${preset.id}">
+            <button class="favorite-btn favorited" data-fav="${preset.id}" data-fav-type="melodic">♡</button>
+            <div class="preset-header">
+              <span class="preset-icon">${preset.icon}</span>
+              <span class="preset-title">${preset.name}</span>
+              <span class="preset-delta">${Math.round(preset.rightHz - preset.leftHz)} Hz Δ</span>
+            </div>
+            <p class="preset-description">${preset.desc}</p>
+          </div>
+        `;
+      }
+      return '';
+    }).join('');
+  }
+
+  function renderMelodicPresets() {
+    const container = document.getElementById('melodicPresets');
+    container.innerHTML = MELODIC_PRESETS.map(p => `
+      <div class="melodic-card" data-melodic="${p.id}">
+        <button class="favorite-btn ${isFavorite('melodic:'+p.id) ? 'favorited' : ''}" data-fav="${p.id}" data-fav-type="melodic">♡</button>
+        <div class="preset-header">
+          <span class="preset-icon">${p.icon}</span>
+          <span class="preset-title">${p.name}</span>
+          <span class="preset-delta">${Math.round(p.rightHz - p.leftHz)} Hz Δ</span>
+        </div>
+        <p class="preset-description">${p.desc}</p>
+        <div class="melodic-info">
+          ${p.tags.map((t, i) => {
+            let badgeClass = 'melodic-badge';
+            if (t.toLowerCase().includes('dopamine') || t.toLowerCase().includes('endorphin') || t.toLowerCase().includes('reward')) {
+              badgeClass += ' dopamine';
+            } else if (t.toLowerCase().includes('harmony') || t.toLowerCase().includes('harmonic')) {
+              badgeClass += ' harmony';
+            }
+            return `<span class="${badgeClass}">${t}</span>`;
+          }).join('')}
+        </div>
+        <div class="melodic-wave-indicator">
+          <div class="melodic-wave"></div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function renderHistory() {
+    const container = document.getElementById('historyList');
+    const emptyEl = document.getElementById('historyEmpty');
+    const history = getSessionHistory();
+    
+    if (history.length === 0) {
+      container.innerHTML = '';
+      emptyEl.style.display = 'block';
+      return;
+    }
+    
+    emptyEl.style.display = 'none';
+    container.innerHTML = history.slice(0, 10).map(h => {
+      const date = new Date(h.timestamp);
+      const timeAgo = getTimeAgo(date);
+      const mins = Math.floor(h.duration / 60);
+      const secs = h.duration % 60;
+      return `
+        <div class="history-item">
+          <span class="history-icon">${h.icon || '🎵'}</span>
+          <div class="history-info">
+            <div class="history-name">${h.name}</div>
+            <div class="history-meta">${timeAgo}</div>
+          </div>
+          <span class="history-duration">${mins}:${secs.toString().padStart(2, '0')}</span>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function getTimeAgo(date) {
+    const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
+    if (seconds < 60) return 'Just now';
+    if (seconds < 3600) return Math.floor(seconds / 60) + ' min ago';
+    if (seconds < 86400) return Math.floor(seconds / 3600) + ' hours ago';
+    if (seconds < 604800) return Math.floor(seconds / 86400) + ' days ago';
+    return date.toLocaleDateString();
+  }
+
+  function updateFavoriteButtons() {
+    document.querySelectorAll('.favorite-btn').forEach(btn => {
+      const id = btn.dataset.fav;
+      const type = btn.dataset.favType;
+      const fullId = `${type}:${id}`;
+      if (getFavorites().includes(fullId)) {
+        btn.classList.add('favorited');
+      } else {
+        btn.classList.remove('favorited');
+      }
+    });
+  }
+
+  // ===== EVENT HANDLERS =====
+  
+  // Play/Stop
+  playBtn.addEventListener('click', () => {
+    if (!currentPreset) {
+      showToast('Select a frequency first', '📍');
+      return;
+    }
+    
+    if (isPlaying) {
+      stopOscillators();
+      isPlaying = false;
+      playBtn.classList.remove('active');
+      playBtn.textContent = '▶';
+      frequencyOrb.classList.remove('playing');
+      endSession();
+    } else {
+      if (currentPreset.left && currentPreset.right) {
+        createOscillators(currentPreset.left, currentPreset.right);
+      } else if (currentPreset.freq) {
+        createOscillators(currentPreset.freq, currentPreset.freq);
+      }
+      isPlaying = true;
+      playBtn.classList.add('active');
+      playBtn.textContent = '⏸';
+      frequencyOrb.classList.add('playing');
+      startSession();
+      drawWaveform();
+      showToast('Frequency activated', '✧');
+    }
+  });
+
+  stopBtn.addEventListener('click', () => {
+    stopMelodicModulation();
+    stopOscillators();
+    isPlaying = false;
+    playBtn.classList.remove('active');
+    playBtn.textContent = '▶';
+    frequencyOrb.classList.remove('playing');
+    endSession();
+    
+    // Stop journey if running
+    if (currentJourney) {
+      stopJourney();
+    }
+  });
+
+  // Preset selection
+  document.getElementById('brainwavePresets').addEventListener('click', (e) => {
+    const card = e.target.closest('.preset-card');
+    if (!card) return;
+    
+    // Handle share button
+    if (e.target.closest('.share-btn')) {
+      const presetId = e.target.dataset.share;
+      openShareModal(presetId, 'brainwave');
+      return;
+    }
+    if (e.target.closest('.favorite-btn')) return;
+    
+    const presetId = card.dataset.preset;
+    const preset = BRAINWAVE_PRESETS.find(p => p.id === presetId);
+    if (!preset) return;
+    
+    // Update UI - clear all active states
+    document.querySelectorAll('.preset-card').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('.melodic-card').forEach(c => {
+      c.classList.remove('active');
+      c.classList.remove('playing');
+    });
+    card.classList.add('active');
+    
+    // Stop melodic modulation if active
+    stopMelodicModulation();
+    
+    currentPreset = preset;
+    updateDisplay(preset);
+    
+    // Auto-play
+    if (isPlaying) {
+      setFrequencies(preset.left, preset.right);
+    } else {
+      createOscillators(preset.left, preset.right);
+      isPlaying = true;
+      playBtn.classList.add('active');
+      playBtn.textContent = '⏸';
+      frequencyOrb.classList.add('playing');
+      startSession();
+      drawWaveform();
+    }
+    
+    showToast(`${preset.name} activated`, preset.icon);
+  });
+
+  document.getElementById('solfeggioPresets').addEventListener('click', (e) => {
+    const card = e.target.closest('.preset-card');
+    if (!card) return;
+    
+    if (e.target.closest('.share-btn')) {
+      const presetId = e.target.dataset.shareSolf;
+      openShareModal(presetId, 'solfeggio');
+      return;
+    }
+    
+    const presetId = card.dataset.solfeggio;
+    const preset = SOLFEGGIO_PRESETS.find(p => p.id === presetId);
+    if (!preset) return;
+    
+    document.querySelectorAll('.preset-card').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('.melodic-card').forEach(c => c.classList.remove('active'));
+    card.classList.add('active');
+    
+    currentPreset = preset;
+    stopMelodicModulation();
+    updateDisplay(preset, true);
+    
+    // For solfeggio, play same frequency in both ears (pure tone)
+    if (isPlaying) {
+      setFrequencies(preset.freq, preset.freq);
+    } else {
+      createOscillators(preset.freq, preset.freq);
+      isPlaying = true;
+      playBtn.classList.add('active');
+      playBtn.textContent = '⏸';
+      frequencyOrb.classList.add('playing');
+      startSession();
+      drawWaveform();
+    }
+    
+    showToast(`${preset.name} - ${preset.freq}Hz`, preset.icon);
+  });
+
+  // Melodic Bliss preset handling
+  let melodicModulationInterval = null;
+  let melodicHarmonicOscs = [];
+  
+  document.getElementById('melodicPresets').addEventListener('click', (e) => {
+    const card = e.target.closest('.melodic-card');
+    if (!card) return;
+    if (e.target.closest('.favorite-btn')) return;
+    
+    const presetId = card.dataset.melodic;
+    const preset = MELODIC_PRESETS.find(p => p.id === presetId);
+    if (!preset) return;
+    
+    // Clear other active states
+    document.querySelectorAll('.preset-card').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('.melodic-card').forEach(c => {
+      c.classList.remove('active');
+      c.classList.remove('playing');
+    });
+    card.classList.add('active');
+    card.classList.add('playing');
+    
+    currentPreset = preset;
+    
+    // Update display for melodic
+    freqValue.textContent = Math.round(preset.rightHz - preset.leftHz);
+    freqName.textContent = preset.name;
+    freqDelta.textContent = 'Melodic Bliss';
+    freqBenefits.textContent = preset.desc;
+    
+    // Create melodic audio with harmonics and modulation
+    createMelodicAudio(preset);
+    
+    isPlaying = true;
+    playBtn.classList.add('active');
+    playBtn.textContent = '⏸';
+    frequencyOrb.classList.add('playing');
+    startSession();
+    drawWaveform();
+    
+    showToast(`${preset.name} activated`, preset.icon);
+  });
+
+  function createMelodicAudio(preset) {
+    ensureAudio();
+    stopMelodicModulation();
+    stopOscillators();
+    
+    // Main binaural pair
+    oscL = audioCtx.createOscillator();
+    oscL.type = 'sine';
+    oscL.frequency.value = preset.leftHz;
+    gainL = audioCtx.createGain();
+    gainL.gain.value = 0.15;
+    panL = audioCtx.createStereoPanner();
+    panL.pan.value = -1;
+    oscL.connect(gainL).connect(panL).connect(analyser).connect(audioCtx.destination);
+    
+    oscR = audioCtx.createOscillator();
+    oscR.type = 'sine';
+    oscR.frequency.value = preset.rightHz;
+    gainR = audioCtx.createGain();
+    gainR.gain.value = 0.15;
+    panR = audioCtx.createStereoPanner();
+    panR.pan.value = 1;
+    oscR.connect(gainR).connect(panR).connect(analyser).connect(audioCtx.destination);
+    
+    oscL.start();
+    oscR.start();
+    
+    // Create harmonic overtones (mono, quieter)
+    if (preset.harmonics && preset.harmonics.length > 1) {
+      const baseFreq = (preset.leftHz + preset.rightHz) / 2;
+      preset.harmonics.slice(1).forEach((mult, i) => {
+        const harmOsc = audioCtx.createOscillator();
+        harmOsc.type = 'sine';
+        harmOsc.frequency.value = baseFreq * mult;
+        const harmGain = audioCtx.createGain();
+        harmGain.gain.value = 0.05 / (i + 1); // Quieter for higher harmonics
+        harmOsc.connect(harmGain).connect(audioCtx.destination);
+        harmOsc.start();
+        melodicHarmonicOscs.push({ osc: harmOsc, gain: harmGain, baseMult: mult });
+      });
+    }
+    
+    // Start modulation
+    if (preset.modulation) {
+      startMelodicModulation(preset);
+    }
+  }
+
+  function startMelodicModulation(preset) {
+    const mod = preset.modulation;
+    const baseLeftHz = preset.leftHz;
+    const baseRightHz = preset.rightHz;
+    let phase = 0;
+    
+    melodicModulationInterval = setInterval(() => {
+      if (!oscL || !oscR || !audioCtx) return;
+      
+      phase += mod.rate;
+      let modValue = 0;
+      
+      switch(mod.type) {
+        case 'gentle':
+          modValue = Math.sin(phase) * mod.depth;
+          break;
+        case 'breathing':
+          modValue = Math.sin(phase) * mod.depth * (0.5 + 0.5 * Math.sin(phase * 0.3));
+          break;
+        case 'drift':
+          modValue = (Math.sin(phase) + Math.sin(phase * 1.618) * 0.5) * mod.depth * 0.7;
+          break;
+        case 'cascade':
+          modValue = (Math.sin(phase) + Math.sin(phase * 2) * 0.3 + Math.sin(phase * 3) * 0.1) * mod.depth;
+          break;
+        case 'shimmer':
+          modValue = Math.sin(phase) * mod.depth + Math.sin(phase * 3.14) * mod.depth * 0.3;
+          break;
+        case 'pulse':
+          modValue = Math.pow(Math.sin(phase), 2) * mod.depth * 2;
+          break;
+        case 'slow':
+          modValue = Math.sin(phase) * mod.depth * 0.5;
+          break;
+        case 'massage':
+          modValue = (Math.sin(phase) * Math.sin(phase * 0.7)) * mod.depth * 1.5;
+          break;
+        case 'envelop':
+          modValue = Math.sin(phase) * mod.depth * (1 + 0.3 * Math.sin(phase * 0.5));
+          break;
+        case 'bubble':
+          modValue = Math.abs(Math.sin(phase * 2)) * mod.depth;
+          break;
+        case 'minimal':
+          modValue = Math.sin(phase) * mod.depth * 0.3;
+          break;
+        default:
+          modValue = Math.sin(phase) * mod.depth;
+      }
+      
+      // Apply modulation to frequencies
+      oscL.frequency.setValueAtTime(baseLeftHz + modValue, audioCtx.currentTime);
+      oscR.frequency.setValueAtTime(baseRightHz + modValue, audioCtx.currentTime);
+      
+      // Subtle modulation on harmonics too
+      melodicHarmonicOscs.forEach(({ osc, baseMult }) => {
+        const baseFreq = (baseLeftHz + baseRightHz) / 2;
+        osc.frequency.setValueAtTime(baseFreq * baseMult + modValue * baseMult * 0.5, audioCtx.currentTime);
+      });
+      
+    }, 50); // 20fps modulation
+  }
+
+  function stopMelodicModulation() {
+    if (melodicModulationInterval) {
+      clearInterval(melodicModulationInterval);
+      melodicModulationInterval = null;
+    }
+    
+    // Stop harmonic oscillators
+    melodicHarmonicOscs.forEach(({ osc }) => {
+      try { osc.stop(); osc.disconnect(); } catch(e) {}
+    });
+    melodicHarmonicOscs = [];
+    
+    // Remove playing class from melodic cards
+    document.querySelectorAll('.melodic-card').forEach(c => c.classList.remove('playing'));
+  }
+
+  // Journey handling
+  document.getElementById('journeyCards').addEventListener('click', (e) => {
+    const startBtn = e.target.closest('.journey-start-btn');
+    if (!startBtn) return;
+    
+    const card = startBtn.closest('.journey-card');
+    const journeyId = card.dataset.journey;
+    startJourney(journeyId);
+  });
+
+  function startJourney(journeyId) {
+    const journey = JOURNEYS.find(j => j.id === journeyId);
+    if (!journey) return;
+    
+    currentJourney = journey;
+    isDynamicJourney = false;
+    journeyStartTime = Date.now();
+    
+    // Show overlay
+    journeyOverlay.classList.add('active');
+    document.getElementById('journeyProgressIcon').textContent = journey.icon;
+    document.getElementById('journeyProgressTitle').textContent = journey.name;
+    document.getElementById('journeyTotal').textContent = formatTime(journey.duration * 60);
+    
+    // Render phase markers for regular journeys too
+    renderGuidedPhaseMarkers(journey);
+    
+    // Start first phase
+    updateJourneyPhase();
+    
+    // Start audio
+    const firstPhase = journey.phases[0];
+    const leftHz = 200;
+    const rightHz = 200 + firstPhase.hz;
+    createOscillators(leftHz, rightHz);
+    isPlaying = true;
+    startSession();
+    
+    // Update loop
+    journeyInterval = setInterval(updateJourneyProgress, 1000);
+    
+    showToast(`${journey.name} journey started`, journey.icon);
+  }
+
+  function renderGuidedPhaseMarkers(journey) {
+    const markersContainer = document.getElementById('journeyPhaseMarkers');
+    const legendContainer = document.getElementById('journeyPhasesLegend');
+    const totalDuration = journey.duration * 60;
+    
+    let accumulatedTime = 0;
+    let markersHtml = '';
+    let legendHtml = '';
+    
+    journey.phases.forEach((phase, index) => {
+      const phaseDuration = phase.duration * 60;
+      const startPercent = (accumulatedTime / totalDuration) * 100;
+      
+      if (index > 0) {
+        markersHtml += `<div class="journey-phase-marker" style="left: ${startPercent}%" data-phase-index="${index}"></div>`;
+      }
+      
+      const phaseName = phase.name || `Phase ${index + 1}`;
+      legendHtml += `<div class="journey-phase-legend-item" data-legend-index="${index}">
+        <span class="journey-phase-dot"></span>
+        <span>${phase.hz}Hz ${phase.type}</span>
+      </div>`;
+      
+      accumulatedTime += phaseDuration;
+    });
+    
+    markersContainer.innerHTML = markersHtml;
+    legendContainer.innerHTML = legendHtml;
+  }
+
+  function updateJourneyProgress() {
+    if (!currentJourney) return;
+    
+    const elapsed = (Date.now() - journeyStartTime) / 1000;
+    const totalDuration = currentJourney.duration * 60;
+    
+    // Update progress bar
+    const progress = Math.min(elapsed / totalDuration * 100, 100);
+    document.getElementById('journeyBarFill').style.width = progress + '%';
+    document.getElementById('journeyElapsed').textContent = formatTime(elapsed);
+    
+    // Check if journey complete
+    if (elapsed >= totalDuration) {
+      completeJourney();
+      return;
+    }
+    
+    // Update phase
+    updateJourneyPhase();
+  }
+
+  function updateJourneyPhase() {
+    if (!currentJourney) return;
+    
+    const elapsed = (Date.now() - journeyStartTime) / 1000;
+    let accumulatedTime = 0;
+    
+    for (let i = 0; i < currentJourney.phases.length; i++) {
+      const phase = currentJourney.phases[i];
+      const phaseDuration = phase.duration * 60;
+      
+      if (elapsed < accumulatedTime + phaseDuration) {
+        // This is the current phase
+        document.getElementById('journeyProgressPhase').textContent = `Phase ${i + 1}: ${phase.name}`;
+        document.getElementById('journeyOrbFreq').textContent = `${phase.hz} Hz`;
+        document.getElementById('journeyOrbDelta').textContent = `${phase.type} Waves`;
+        
+        // Update phase legend highlight
+        updatePhaseLegend(i);
+        
+        // Update frequencies
+        const leftHz = 200;
+        const rightHz = 200 + phase.hz;
+        if (oscL && oscR) {
+          oscL.frequency.linearRampToValueAtTime(leftHz, audioCtx.currentTime + 2);
+          oscR.frequency.linearRampToValueAtTime(rightHz, audioCtx.currentTime + 2);
+        }
+        return;
+      }
+      accumulatedTime += phaseDuration;
+    }
+  }
+
+  function completeJourney() {
+    // Save journey to history before stopping
+    if (currentJourney) {
+      const duration = Math.floor((Date.now() - journeyStartTime) / 1000);
+      saveSession({
+        id: currentJourney.id,
+        name: currentJourney.name,
+        icon: currentJourney.icon
+      }, duration);
+    }
+    stopJourney();
+    showToast('Journey complete! Namaste 🙏', '✨');
+  }
+
+  function stopJourney() {
+    if (journeyInterval) {
+      clearInterval(journeyInterval);
+      journeyInterval = null;
+    }
+    
+    // Save partial journey if stopped early
+    if (currentJourney && journeyStartTime) {
+      const duration = Math.floor((Date.now() - journeyStartTime) / 1000);
+      if (duration >= 30) { // At least 30 seconds
+        saveSession({
+          id: currentJourney.id,
+          name: currentJourney.name,
+          icon: currentJourney.icon
+        }, duration);
+      }
+    }
+    
+    currentJourney = null;
+    isDynamicJourney = false;
+    journeyOverlay.classList.remove('active');
+    stopOscillators();
+    isPlaying = false;
+    playBtn.classList.remove('active');
+    playBtn.textContent = '▶';
+    frequencyOrb.classList.remove('playing');
+    
+    if (sessionInterval) {
+      clearInterval(sessionInterval);
+      sessionInterval = null;
+    }
+    sessionStartTime = null;
+  }
+
+  document.getElementById('journeyStopBtn').addEventListener('click', stopJourney);
+
+  function formatTime(seconds) {
+    const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
+    const secs = Math.floor(seconds % 60).toString().padStart(2, '0');
+    return `${mins}:${secs}`;
+  }
+
+  // Tab navigation
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tab = btn.dataset.tab;
+      
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      
+      document.querySelectorAll('.preset-section').forEach(s => s.classList.remove('active'));
+      document.getElementById(`${tab}-section`).classList.add('active');
+    });
+  });
+
+  // Affirmation refresh
+  document.getElementById('refreshAffirmation').addEventListener('click', () => {
+    const current = affirmationText.textContent;
+    let next;
+    do {
+      next = AFFIRMATIONS[Math.floor(Math.random() * AFFIRMATIONS.length)];
+    } while (next === current.replace(/"/g, ''));
+    affirmationText.textContent = `"${next}"`;
+  });
+
+  // Share modal
+  function openShareModal(presetId, type) {
+    let preset;
+    if (type === 'brainwave') {
+      preset = BRAINWAVE_PRESETS.find(p => p.id === presetId);
+      if (preset) {
+        document.getElementById('shareFreq').textContent = preset.delta;
+        document.getElementById('shareName').textContent = preset.name;
+        document.getElementById('shareBenefit').textContent = preset.desc;
+      }
+    } else {
+      preset = SOLFEGGIO_PRESETS.find(p => p.id === presetId);
+      if (preset) {
+        document.getElementById('shareFreq').textContent = preset.freq;
+        document.getElementById('shareName').textContent = preset.name;
+        document.getElementById('shareBenefit').textContent = preset.desc;
+      }
+    }
+    shareModal.classList.add('active');
+  }
+
+  document.getElementById('shareClose').addEventListener('click', () => {
+    shareModal.classList.remove('active');
+  });
+
+  document.getElementById('shareCancel').addEventListener('click', () => {
+    shareModal.classList.remove('active');
+  });
+
+  document.querySelectorAll('.style-option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      document.querySelectorAll('.style-option').forEach(o => o.classList.remove('active'));
+      opt.classList.add('active');
+      
+      const style = opt.dataset.style;
+      const preview = document.getElementById('shareCardPreview');
+      preview.className = 'share-card-preview style-' + style;
+    });
+  });
+
+  document.getElementById('shareDownload').addEventListener('click', async () => {
+    showToast('Creating your frequency card...', '📸');
+    
+    // Use html2canvas if available, otherwise just close
+    try {
+      if (typeof html2canvas !== 'undefined') {
+        const canvas = await html2canvas(document.getElementById('shareCardPreview'));
+        const link = document.createElement('a');
+        link.download = 'nestorium-frequency.png';
+        link.href = canvas.toDataURL();
+        link.click();
+        showToast('Saved to photos!', '✓');
+      } else {
+        // Fallback: screenshot instructions
+        showToast('Take a screenshot to share!', '📱');
+      }
+    } catch(e) {
+      showToast('Take a screenshot to share!', '📱');
+    }
+    
+    setTimeout(() => shareModal.classList.remove('active'), 1000);
+  });
+
+  // Bottom nav - View switching
+  document.querySelectorAll('.nav-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const nav = item.dataset.nav;
+      document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+      item.classList.add('active');
+      
+      // Hide all views
+      document.querySelectorAll('.view-page').forEach(v => v.classList.remove('active'));
+      
+      if (nav === 'home') {
+        document.getElementById('homeView').classList.add('active');
+        currentView = 'home';
+      } else if (nav === 'favorites') {
+        document.getElementById('favoritesView').classList.add('active');
+        renderFavorites();
+        currentView = 'favorites';
+      } else if (nav === 'history') {
+        document.getElementById('progressView').classList.add('active');
+        updateProgressStats();
+        renderHistory();
+        currentView = 'progress';
+      }
+    });
+  });
+
+  // Favorite button clicks (delegated)
+  document.addEventListener('click', (e) => {
+    const favBtn = e.target.closest('.favorite-btn');
+    if (favBtn) {
+      e.stopPropagation();
+      const id = favBtn.dataset.fav;
+      const type = favBtn.dataset.favType;
+      toggleFavorite(id, type);
+      return;
+    }
+  });
+
+  // Handle favorites view preset clicks
+  document.getElementById('favoritesGrid').addEventListener('click', (e) => {
+    const card = e.target.closest('.preset-card');
+    if (!card) return;
+    if (e.target.closest('.favorite-btn')) return;
+    
+    // Switch to home view and activate preset
+    document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+    document.querySelector('[data-nav="home"]').classList.add('active');
+    document.querySelectorAll('.view-page').forEach(v => v.classList.remove('active'));
+    document.getElementById('homeView').classList.add('active');
+    
+    const presetId = card.dataset.preset;
+    const solfeggioId = card.dataset.solfeggio;
+    
+    if (presetId) {
+      const preset = BRAINWAVE_PRESETS.find(p => p.id === presetId);
+      if (preset) activatePreset(preset, 'brainwave');
+    } else if (solfeggioId) {
+      const preset = SOLFEGGIO_PRESETS.find(p => p.id === solfeggioId);
+      if (preset) activatePreset(preset, 'solfeggio');
+    }
+  });
+
+  // Helper to activate a preset
+  function activatePreset(preset, type) {
+    document.querySelectorAll('.preset-card').forEach(c => c.classList.remove('active'));
+    currentPreset = preset;
+    
+    if (type === 'solfeggio') {
+      updateDisplay(preset, true);
+      if (isPlaying) {
+        setFrequencies(preset.freq, preset.freq);
+      } else {
+        createOscillators(preset.freq, preset.freq);
+        isPlaying = true;
+        playBtn.classList.add('active');
+        playBtn.textContent = '⏸';
+        frequencyOrb.classList.add('playing');
+        startSession();
+        drawWaveform();
+      }
+    } else {
+      updateDisplay(preset);
+      if (isPlaying) {
+        setFrequencies(preset.left, preset.right);
+      } else {
+        createOscillators(preset.left, preset.right);
+        isPlaying = true;
+        playBtn.classList.add('active');
+        playBtn.textContent = '⏸';
+        frequencyOrb.classList.add('playing');
+        startSession();
+        drawWaveform();
+      }
+    }
+    showToast(`${preset.name} activated`, preset.icon);
+  }
+
+  // Dynamic Journey handling
+  document.getElementById('dynamicJourneyCards')?.addEventListener('click', (e) => {
+    const startBtn = e.target.closest('.journey-start-btn');
+    if (!startBtn) return;
+    
+    const card = startBtn.closest('.dynamic-journey-card');
+    const journeyId = card.dataset.dynamicJourney;
+    startDynamicJourney(journeyId);
+  });
+
+  function startDynamicJourney(journeyId) {
+    const journey = DYNAMIC_JOURNEYS.find(j => j.id === journeyId);
+    if (!journey) return;
+    
+    currentJourney = journey;
+    isDynamicJourney = true;
+    journeyStartTime = Date.now();
+    
+    // Show overlay
+    journeyOverlay.classList.add('active');
+    document.getElementById('journeyProgressIcon').textContent = journey.icon;
+    document.getElementById('journeyProgressTitle').textContent = journey.name;
+    document.getElementById('journeyTotal').textContent = formatTime(journey.duration * 60);
+    
+    // Render phase markers
+    renderPhaseMarkers(journey);
+    
+    // Start first phase
+    updateDynamicJourneyPhase();
+    
+    // Start audio with first phase
+    const firstPhase = journey.phases[0];
+    const leftHz = firstPhase.baseHz;
+    const rightHz = firstPhase.baseHz * INTERVALS[firstPhase.interval];
+    createOscillators(leftHz, rightHz);
+    isPlaying = true;
+    startSession();
+    
+    // Update loop
+    journeyInterval = setInterval(updateDynamicJourneyProgress, 1000);
+    
+    showToast(`${journey.name} started`, journey.icon);
+  }
+
+  function renderPhaseMarkers(journey) {
+    const markersContainer = document.getElementById('journeyPhaseMarkers');
+    const legendContainer = document.getElementById('journeyPhasesLegend');
+    const totalDuration = journey.duration * 60; // in seconds
+    
+    let accumulatedTime = 0;
+    let markersHtml = '';
+    let legendHtml = '';
+    
+    journey.phases.forEach((phase, index) => {
+      const phaseDuration = phase.duration * 60;
+      const startPercent = (accumulatedTime / totalDuration) * 100;
+      
+      // Add marker at phase start (except first phase at 0%)
+      if (index > 0) {
+        markersHtml += `<div class="journey-phase-marker" style="left: ${startPercent}%" data-phase-index="${index}"></div>`;
+      }
+      
+      // Add legend item
+      const phaseName = phase.name || `Phase ${index + 1}`;
+      legendHtml += `<div class="journey-phase-legend-item" data-legend-index="${index}">
+        <span class="journey-phase-dot"></span>
+        <span>${phaseName}</span>
+      </div>`;
+      
+      accumulatedTime += phaseDuration;
+    });
+    
+    markersContainer.innerHTML = markersHtml;
+    legendContainer.innerHTML = legendHtml;
+  }
+
+  function updatePhaseLegend(currentPhaseIndex) {
+    document.querySelectorAll('.journey-phase-legend-item').forEach((item, index) => {
+      if (index === currentPhaseIndex) {
+        item.classList.add('current');
+      } else {
+        item.classList.remove('current');
+      }
+    });
+    
+    document.querySelectorAll('.journey-phase-marker').forEach(marker => {
+      const markerIndex = parseInt(marker.dataset.phaseIndex);
+      if (markerIndex <= currentPhaseIndex) {
+        marker.classList.add('active');
+      } else {
+        marker.classList.remove('active');
+      }
+    });
+  }
+
+  function updateDynamicJourneyProgress() {
+    if (!currentJourney || !isDynamicJourney) return;
+    
+    const elapsed = (Date.now() - journeyStartTime) / 1000;
+    const totalDuration = currentJourney.duration * 60;
+    
+    const progress = Math.min(elapsed / totalDuration * 100, 100);
+    document.getElementById('journeyBarFill').style.width = progress + '%';
+    document.getElementById('journeyElapsed').textContent = formatTime(elapsed);
+    
+    if (elapsed >= totalDuration) {
+      completeJourney();
+      return;
+    }
+    
+    updateDynamicJourneyPhase();
+  }
+
+  function updateDynamicJourneyPhase() {
+    if (!currentJourney || !isDynamicJourney) return;
+    
+    const elapsed = (Date.now() - journeyStartTime) / 1000;
+    let accumulatedTime = 0;
+    
+    for (let i = 0; i < currentJourney.phases.length; i++) {
+      const phase = currentJourney.phases[i];
+      const phaseDuration = phase.duration * 60;
+      
+      if (elapsed < accumulatedTime + phaseDuration) {
+        document.getElementById('journeyProgressPhase').textContent = `Phase ${i + 1}: ${phase.name}`;
+        
+        const leftHz = phase.baseHz;
+        const rightHz = phase.baseHz * INTERVALS[phase.interval];
+        const beatHz = Math.abs(rightHz - leftHz).toFixed(1);
+        
+        document.getElementById('journeyOrbFreq').textContent = `${beatHz} Hz`;
+        document.getElementById('journeyOrbDelta').textContent = phase.name;
+        
+        // Update phase legend highlight
+        updatePhaseLegend(i);
+        
+        if (oscL && oscR) {
+          oscL.frequency.linearRampToValueAtTime(leftHz, audioCtx.currentTime + 2);
+          oscR.frequency.linearRampToValueAtTime(rightHz, audioCtx.currentTime + 2);
+        }
+        return;
+      }
+      accumulatedTime += phaseDuration;
+    }
+  }
+
+  // Hide headphones reminder after scroll
+  let reminderHidden = false;
+  document.querySelector('.presets-container').addEventListener('scroll', () => {
+    if (!reminderHidden) {
+      document.getElementById('headphonesReminder').style.opacity = '0';
+      setTimeout(() => {
+        document.getElementById('headphonesReminder').style.display = 'none';
+      }, 300);
+      reminderHidden = true;
+    }
+  });
+
+  // Load streak from localStorage
+  function loadStreak() {
+    const lastSession = localStorage.getItem('nestorium_last_session');
+    let streak = parseInt(localStorage.getItem('nestorium_streak') || '0');
+    let longestStreak = parseInt(localStorage.getItem('nestorium_longest_streak') || '0');
+    
+    if (lastSession) {
+      const lastDate = new Date(lastSession).toDateString();
+      const today = new Date().toDateString();
+      const yesterday = new Date(Date.now() - 86400000).toDateString();
+      
+      if (lastDate === yesterday) {
+        // Continue streak
+        streak += 1;
+        localStorage.setItem('nestorium_streak', streak);
+        localStorage.setItem('nestorium_last_session', new Date().toISOString());
+        
+        // Update longest streak if needed
+        if (streak > longestStreak) {
+          longestStreak = streak;
+          localStorage.setItem('nestorium_longest_streak', longestStreak);
+        }
+      } else if (lastDate !== today) {
+        // Reset streak
+        streak = 1;
+        localStorage.setItem('nestorium_streak', '1');
+        localStorage.setItem('nestorium_last_session', new Date().toISOString());
+      }
+    } else {
+      streak = 1;
+      localStorage.setItem('nestorium_streak', '1');
+      localStorage.setItem('nestorium_last_session', new Date().toISOString());
+    }
+    
+    document.getElementById('streakCount').textContent = streak;
+  }
+
+  // ===== INITIALIZATION =====
+  function init() {
+    createStars();
+    initParticles();
+    animateParticles();
+    renderBrainwavePresets();
+    renderSolfeggioPresets();
+    renderJourneys();
+    renderDynamicJourneys();
+    renderMelodicPresets();
+    renderFavorites();
+    renderHistory();
+    loadStreak();
+    updateProgressStats();
+    
+    // Set random affirmation
+    const randomAffirmation = AFFIRMATIONS[Math.floor(Math.random() * AFFIRMATIONS.length)];
+    affirmationText.textContent = `"${randomAffirmation}"`;
+    
+    // Handle resize for particles
+    window.addEventListener('resize', () => {
+      particleCanvas.width = window.innerWidth;
+      particleCanvas.height = window.innerHeight;
+    });
+  }
+
+  init();
+})();
+</script>
+
+</body>
+</html>
+
