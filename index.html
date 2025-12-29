@@ -870,52 +870,24 @@ body {
   cursor: pointer;
 }
 
-/* Floating Action Indicator */
+/* Floating Action Indicator - Hidden, using inline version now */
 .headphones-reminder {
-  position: fixed;
-  top: calc(80px + var(--safe-top));
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(10, 10, 26, 0.95);
-  border: 1px solid rgba(212, 175, 55, 0.3);
-  border-radius: 20px;
-  padding: 10px 18px;
-  font-size: 12px;
-  color: var(--accent-gold);
+  display: none;
+}
+
+/* Inline Headphones Note */
+.headphones-inline {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  z-index: 200;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-  cursor: pointer;
-  animation: slideDown 0.4s ease-out, fadeOut 0.5s ease-out 4s forwards;
-}
-
-.headphones-reminder::after {
-  content: '×';
-  margin-left: 8px;
-  opacity: 0.5;
-  font-size: 14px;
-}
-
-@keyframes slideDown {
-  from { 
-    transform: translateX(-50%) translateY(-20px); 
-    opacity: 0;
-  }
-  to { 
-    transform: translateX(-50%) translateY(0); 
-    opacity: 1;
-  }
-}
-
-@keyframes fadeOut {
-  to { 
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-  }
+  margin-top: 12px;
+  padding: 8px 16px;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(155, 126, 217, 0.08));
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 12px;
+  font-size: 11px;
+  color: var(--accent-gold);
 }
 
 /* Bottom Navigation */
@@ -1554,6 +1526,11 @@ body {
     <div class="frequency-delta" id="freqDelta">Choose a preset to begin</div>
     <div class="frequency-benefits" id="freqBenefits">Binaural beats create gentle frequency differences between ears to guide your brainwaves into desired states.</div>
     
+    <div class="headphones-inline">
+      <span>🎧</span>
+      <span>Headphones recommended for binaural effect</span>
+    </div>
+    
     <div class="waveform-container">
       <canvas id="waveformCanvas"></canvas>
     </div>
@@ -1699,10 +1676,6 @@ body {
 
 </div>
 
-<div class="headphones-reminder" id="headphonesReminder">
-  <span>🎧</span>
-  <span>Headphones recommended for binaural effect</span>
-</div>
 
 <nav class="bottom-nav">
   <button class="nav-item active" data-nav="home">
@@ -3452,24 +3425,6 @@ body {
     }
   }
 
-  // Hide headphones reminder on tap or after timeout
-  const headphonesReminder = document.getElementById('headphonesReminder');
-  
-  function hideReminder() {
-    if (headphonesReminder) {
-      headphonesReminder.style.opacity = '0';
-      headphonesReminder.style.transform = 'translateX(-50%) translateY(-20px)';
-      setTimeout(() => {
-        headphonesReminder.style.display = 'none';
-      }, 300);
-    }
-  }
-  
-  // Tap to dismiss
-  headphonesReminder?.addEventListener('click', hideReminder);
-  
-  // Auto-hide after 5 seconds
-  setTimeout(hideReminder, 5000);
 
   // Load streak from localStorage
   function loadStreak() {
