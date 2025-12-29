@@ -890,6 +890,44 @@ body {
   color: var(--accent-gold);
 }
 
+/* Melodic Progress */
+.melodic-progress {
+  margin-top: 8px;
+  background: var(--bg-glass);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 8px 10px;
+}
+
+.melodic-progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10px;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.melodic-progress-title {
+  color: var(--accent-teal);
+  font-weight: 600;
+}
+
+.melodic-progress-bar {
+  width: 100%;
+  height: 6px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.melodic-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent-violet), var(--accent-gold));
+  transition: width 0.3s ease;
+}
+
 /* Bottom Navigation */
 .bottom-nav {
   position: fixed;
@@ -1495,6 +1533,27 @@ body {
 .melodic-card.playing .melodic-wave {
   animation: pulse-wave 2s ease-in-out infinite;
 }
+
+/* Melodic card progress */
+.melodic-card-progress {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.melodic-card-progress-bar {
+  width: 100%;
+  height: 4px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.melodic-card-progress-fill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-violet), var(--accent-gold));
+  transition: width 0.3s ease;
+}
 </style>
 </head>
 <body>
@@ -1535,6 +1594,16 @@ body {
     <div class="headphones-inline">
       <span>🎧</span>
       <span>Headphones recommended for binaural effect</span>
+    </div>
+
+    <div class="melodic-progress hidden" id="melodicProgress">
+      <div class="melodic-progress-header">
+        <span class="melodic-progress-title">Melodic Journey</span>
+        <span class="melodic-progress-time"><span id="melodicElapsed">00:00</span> / <span id="melodicTotal">00:00</span></span>
+      </div>
+      <div class="melodic-progress-bar">
+        <div class="melodic-progress-fill" id="melodicProgressFill"></div>
+      </div>
     </div>
     
     <div class="waveform-container">
@@ -1982,8 +2051,13 @@ body {
     major3rd: 1.25,
     minor3rd: 1.2,
     major6th: 5/3,
-    minor6th: 1.6
+    minor6th: 1.6,
+    golden: 1.618,
+    goldenSq: 2.618
   };
+
+  // Melodic pitch lift to keep presets out of very low range
+  const MELODIC_LIFT = 30;
 
   // Melodic Bliss Presets - Dopamine boosting harmonic frequencies
   const MELODIC_PRESETS = [
@@ -2069,7 +2143,231 @@ body {
       leftHz: 130, rightHz: 135,
       harmonics: [1, 2],
       modulation: { type: 'minimal', rate: 0.02, depth: 1 },
-      tags: ['Zen', 'Minimal', 'Tranquil'], color: '#84cc16' }
+      tags: ['Zen', 'Minimal', 'Tranquil'], color: '#84cc16' },
+    
+    // New Evolving Melodic Presets with intervals and stereo (softer, lower, song-like)
+    { id: 'om-ascension', name: 'OM Ascension', icon: '🕉️',
+      desc: 'Sacred OM (136.1Hz) drifts through warm thirds and fifths, returning home gently.',
+      leftHz: 128, rightHz: 136,
+      harmonics: [1, 1.25, 1.5],
+      modulation: { type: 'evolving', rate: 0.01, depth: 1.8 },
+      evolution: { 
+        intervals: ['unison', 'major3rd', 'fifth', 'octave', 'fifth', 'major3rd', 'unison'],
+        cycleDuration: 90,
+        baseHz: 132
+      },
+      stereo: { type: 'gentle-sway', rate: 0.012, depth: 0.25 },
+      tags: ['OM', 'Sacred', 'Evolving'], color: '#f59e0b' },
+    
+    { id: 'harmonic-river', name: 'Harmonic River', icon: '🌊',
+      desc: 'Low, flowing unison to fourth to fifth and back, like water currents in slow motion.',
+      leftHz: 118, rightHz: 124,
+      harmonics: [1, 1.5, 2],
+      modulation: { type: 'flowing', rate: 0.015, depth: 2.2 },
+      evolution: {
+        intervals: ['unison', 'fourth', 'fifth', 'fourth', 'unison'],
+        cycleDuration: 80,
+        baseHz: 120
+      },
+      stereo: { type: 'wave', rate: 0.018, depth: 0.35 },
+      tags: ['Flowing', 'Intervals', 'Stereo'], color: '#06b6d4' },
+    
+    { id: 'celestial-dance', name: 'Celestial Dance', icon: '💫',
+      desc: 'Soft dancing thirds and fifths, rotating slowly around the head—never sharp, always kind.',
+      leftHz: 150, rightHz: 158,
+      harmonics: [1, 1.25, 1.5, 2],
+      modulation: { type: 'dance', rate: 0.02, depth: 2.4 },
+      evolution: {
+        intervals: ['major3rd', 'fifth', 'major6th', 'fifth', 'major3rd'],
+        cycleDuration: 75,
+        baseHz: 154
+      },
+      stereo: { type: 'rotate', rate: 0.022, depth: 0.4 },
+      tags: ['Dancing', 'Magic', 'Rotation'], color: '#a855f7' },
+    
+    { id: 'fibonacci-bloom', name: 'Fibonacci Bloom', icon: '🌻',
+      desc: 'Golden ratio steps bloom slowly; a gentle spiral that breathes in and out.',
+      leftHz: 126, rightHz: 132,
+      harmonics: [1, 1.618, 2.618],
+      modulation: { type: 'bloom', rate: 0.012, depth: 1.6 },
+      evolution: {
+        intervals: ['unison', 'golden', 'goldenSq', 'golden', 'unison'],
+        cycleDuration: 95,
+        baseHz: 128
+      },
+      stereo: { type: 'spiral', rate: 0.014, depth: 0.3 },
+      tags: ['Golden', 'Fibonacci', 'Spiral'], color: '#eab308' },
+    
+    { id: 'breathing-cosmos', name: 'Breathing Cosmos', icon: '🌌',
+      desc: 'Expands and contracts like the universe—slow, deep, and steady.',
+      leftHz: 110, rightHz: 116,
+      harmonics: [1, 1.5, 2, 3],
+      modulation: { type: 'breath-cosmic', rate: 0.009, depth: 2.8 },
+      evolution: {
+        intervals: ['unison', 'major3rd', 'fifth', 'octave', 'fifth', 'major3rd', 'unison'],
+        cycleDuration: 120,
+        baseHz: 112
+      },
+      stereo: { type: 'breath', rate: 0.01, depth: 0.3 },
+      tags: ['Cosmic', 'Breathing', 'Immersive'], color: '#6366f1' },
+    
+    { id: 'aurora-cascade', name: 'Aurora Cascade', icon: '🌠',
+      desc: 'Shimmers like northern lights—very soft cascades of fifths and sixths across stereo.',
+      leftHz: 140, rightHz: 147,
+      harmonics: [1, 1.25, 1.5, 1.75, 2],
+      modulation: { type: 'shimmer-cascade', rate: 0.02, depth: 2.2 },
+      evolution: {
+        intervals: ['fifth', 'major6th', 'octave', 'major6th', 'fifth', 'major3rd', 'fifth'],
+        cycleDuration: 85,
+        baseHz: 144
+      },
+      stereo: { type: 'cascade', rate: 0.022, depth: 0.45 },
+      tags: ['Aurora', 'Cascade', 'Shimmer'], color: '#14b8a6' },
+    
+    { id: 'heart-resonance', name: 'Heart Resonance', icon: '💗',
+      desc: 'Warm heart-centered thirds and fourths, like a gentle embrace. Low and loving.',
+      leftHz: 120, rightHz: 126,
+      harmonics: [1, 1.25, 1.5],
+      modulation: { type: 'heartbeat', rate: 0.012, depth: 1.4 },
+      evolution: {
+        intervals: ['unison', 'major3rd', 'fourth', 'major3rd', 'unison'],
+        cycleDuration: 100,
+        baseHz: 122
+      },
+      stereo: { type: 'pulse', rate: 0.012, depth: 0.25 },
+      tags: ['Heart', 'Love', 'Pulse'], color: '#ec4899' },
+    
+    { id: 'temple-bells', name: 'Temple Bells', icon: '🔔',
+      desc: 'Bowl-like overtones with fifths and octaves; very slow resonance that never crowds.',
+      leftHz: 96, rightHz: 102,
+      harmonics: [1, 1.5, 2, 3, 4],
+      modulation: { type: 'bells', rate: 0.006, depth: 1.2 },
+      evolution: {
+        intervals: ['unison', 'fifth', 'octave', 'fifth', 'unison'],
+        cycleDuration: 130,
+        baseHz: 98
+      },
+      stereo: { type: 'resonance', rate: 0.008, depth: 0.25 },
+      tags: ['Temple', 'Bells', 'Resonance'], color: '#d97706' }
+
+    ,
+    // Meditation Soundscape-inspired (instrumental/nature flavored)
+    { id: 'rain-temple', name: 'Rain Temple', icon: '🌧️',
+      desc: 'Soft rain-like shimmer over a low temple drone. Fifths drift slowly like distant bells.',
+      leftHz: 84, rightHz: 90,
+      harmonics: [1, 1.5, 2],
+      modulation: { type: 'shimmer-cascade', rate: 0.014, depth: 1.4 },
+      evolution: {
+        intervals: ['unison', 'fifth', 'octave', 'fifth', 'unison'],
+        cycleDuration: 110,
+        baseHz: 86
+      },
+      stereo: { type: 'wave', rate: 0.012, depth: 0.28 },
+      tags: ['Rain', 'Temple', 'Calm'], color: '#60a5fa' },
+
+    { id: 'ocean-prana', name: 'Ocean Prana', icon: '🌊',
+      desc: 'Oceanic breath with gentle fourths/fifths. Feels like slow waves rolling under the horizon.',
+      leftHz: 78, rightHz: 84,
+      harmonics: [1, 1.333, 1.5],
+      modulation: { type: 'flowing', rate: 0.011, depth: 1.6 },
+      evolution: {
+        intervals: ['unison', 'fourth', 'fifth', 'fourth', 'unison'],
+        cycleDuration: 95,
+        baseHz: 80
+      },
+      stereo: { type: 'breath', rate: 0.011, depth: 0.3 },
+      tags: ['Ocean', 'Breath', 'Prana'], color: '#38bdf8' },
+
+    { id: 'bamboo-flute-drone', name: 'Bamboo Flute Drone', icon: '🍃',
+      desc: 'Low bamboo drone with rising major third and fifth glides—like a distant bansuri in fog.',
+      leftHz: 92, rightHz: 98,
+      harmonics: [1, 1.25, 1.5],
+      modulation: { type: 'evolving', rate: 0.013, depth: 1.5 },
+      evolution: {
+        intervals: ['unison', 'major3rd', 'fifth', 'major3rd', 'unison'],
+        cycleDuration: 85,
+        baseHz: 94
+      },
+      stereo: { type: 'spiral', rate: 0.013, depth: 0.22 },
+      tags: ['Flute', 'Drone', 'Bamboo'], color: '#4ade80' },
+
+    { id: 'forest-om', name: 'Forest OM', icon: '🌲',
+      desc: 'Earthy OM root with subtle thirds; gentle sway like leaves. Grounding and hushed.',
+      leftHz: 76, rightHz: 82,
+      harmonics: [1, 1.25, 1.5],
+      modulation: { type: 'breath-cosmic', rate: 0.009, depth: 1.8 },
+      evolution: {
+        intervals: ['unison', 'major3rd', 'fourth', 'major3rd', 'unison'],
+        cycleDuration: 120,
+        baseHz: 78
+      },
+      stereo: { type: 'gentle-sway', rate: 0.01, depth: 0.2 },
+      tags: ['OM', 'Forest', 'Ground'], color: '#22c55e' },
+
+    { id: 'singing-bowl-drift', name: 'Singing Bowl Drift', icon: '🥣',
+      desc: 'Very slow bowl-like overtones; fifths and octaves glint softly, never sharp.',
+      leftHz: 88, rightHz: 94,
+      harmonics: [1, 1.5, 2, 3],
+      modulation: { type: 'bells', rate: 0.007, depth: 1.0 },
+      evolution: {
+        intervals: ['unison', 'fifth', 'octave', 'fifth', 'unison'],
+        cycleDuration: 140,
+        baseHz: 90
+      },
+      stereo: { type: 'resonance', rate: 0.009, depth: 0.2 },
+      tags: ['Bowl', 'Overtones', 'Drift'], color: '#f59e0b' },
+
+    { id: 'night-crickets', name: 'Night Crickets', icon: '🦗',
+      desc: 'Gentle, tiny shimmer on a low drone—like distant crickets over a warm summer night.',
+      leftHz: 82, rightHz: 88,
+      harmonics: [1, 1.333, 1.5],
+      modulation: { type: 'shimmer-cascade', rate: 0.016, depth: 1.2 },
+      evolution: {
+        intervals: ['unison', 'fourth', 'fifth', 'fourth', 'unison'],
+        cycleDuration: 90,
+        baseHz: 84
+      },
+      stereo: { type: 'cascade', rate: 0.015, depth: 0.22 },
+      tags: ['Nature', 'Crickets', 'Night'], color: '#a78bfa' },
+
+    { id: 'crystal-bowl-halo', name: 'Crystal Bowl Halo', icon: '🫧',
+      desc: 'Bright but soft crystal bowl overtones, floating fifths and octaves with a halo-like shimmer.',
+      leftHz: 132, rightHz: 140,
+      harmonics: [1, 1.5, 2, 2.5],
+      modulation: { type: 'shimmer-cascade', rate: 0.015, depth: 1.4 },
+      evolution: {
+        intervals: ['unison', 'fifth', 'octave', 'fifth', 'unison'],
+        cycleDuration: 100,
+        baseHz: 136
+      },
+      stereo: { type: 'cascade', rate: 0.016, depth: 0.3 },
+      tags: ['Bowl', 'Crystal', 'Halo'], color: '#c084fc' },
+
+    { id: 'deep-bronze-bowl', name: 'Deep Bronze Bowl', icon: '🛕',
+      desc: 'Deep bronze resonance with very slow fifth/octave swells. Grounding, warm, non-intrusive.',
+      leftHz: 104, rightHz: 110,
+      harmonics: [1, 1.5, 2, 3],
+      modulation: { type: 'bells', rate: 0.007, depth: 1.1 },
+      evolution: {
+        intervals: ['unison', 'fifth', 'octave', 'fifth', 'unison'],
+        cycleDuration: 150,
+        baseHz: 106
+      },
+      stereo: { type: 'resonance', rate: 0.008, depth: 0.22 },
+      tags: ['Bowl', 'Deep', 'Bronze'], color: '#f97316' },
+
+    { id: 'celestial-bowl-choir', name: 'Celestial Bowl Choir', icon: '🌠',
+      desc: 'Layered bowls in gentle choir: thirds, fifths, and octaves blend into a soft celestial pad.',
+      leftHz: 148, rightHz: 156,
+      harmonics: [1, 1.25, 1.5, 2, 3],
+      modulation: { type: 'evolving', rate: 0.018, depth: 1.6 },
+      evolution: {
+        intervals: ['unison', 'major3rd', 'fifth', 'octave', 'fifth', 'major3rd', 'unison'],
+        cycleDuration: 110,
+        baseHz: 152
+      },
+      stereo: { type: 'spiral', rate: 0.02, depth: 0.28 },
+      tags: ['Bowl', 'Choir', 'Celestial'], color: '#8b5cf6' }
   ];
 
   // ===== STATE =====
@@ -2088,6 +2386,9 @@ body {
   let waveformData = null;
   let isDynamicJourney = false;
   let currentView = 'home';
+  let melodicProgressInterval = null;
+  let melodicCycleSeconds = 0;
+  let melodicStartTime = null;
 
   // ===== STORAGE HELPERS =====
   function getFavorites() {
@@ -2561,6 +2862,11 @@ body {
         <div class="melodic-wave-indicator">
           <div class="melodic-wave"></div>
         </div>
+        <div class="melodic-card-progress">
+          <div class="melodic-card-progress-bar">
+            <div class="melodic-card-progress-fill" data-progress="${p.id}"></div>
+          </div>
+        </div>
       </div>
     `).join('');
   }
@@ -2796,11 +3102,17 @@ body {
     ensureAudio();
     stopMelodicModulation();
     stopOscillators();
+    stopMelodicProgress();
+    
+    const baseLeftHz = (preset.leftHz || 0) + MELODIC_LIFT;
+    const baseRightHz = (preset.rightHz || 0) + MELODIC_LIFT;
+    const cycleSeconds = (preset.evolution?.cycleDuration || 120);
+    startMelodicProgress(cycleSeconds);
     
     // Main binaural pair
     oscL = audioCtx.createOscillator();
     oscL.type = 'sine';
-    oscL.frequency.value = preset.leftHz;
+    oscL.frequency.value = baseLeftHz;
     gainL = audioCtx.createGain();
     gainL.gain.value = 0.15;
     panL = audioCtx.createStereoPanner();
@@ -2809,7 +3121,7 @@ body {
     
     oscR = audioCtx.createOscillator();
     oscR.type = 'sine';
-    oscR.frequency.value = preset.rightHz;
+    oscR.frequency.value = baseRightHz;
     gainR = audioCtx.createGain();
     gainR.gain.value = 0.15;
     panR = audioCtx.createStereoPanner();
@@ -2821,7 +3133,7 @@ body {
     
     // Create harmonic overtones (mono, quieter)
     if (preset.harmonics && preset.harmonics.length > 1) {
-      const baseFreq = (preset.leftHz + preset.rightHz) / 2;
+      const baseFreq = (baseLeftHz + baseRightHz) / 2;
       preset.harmonics.slice(1).forEach((mult, i) => {
         const harmOsc = audioCtx.createOscillator();
         harmOsc.type = 'sine';
@@ -2842,15 +3154,78 @@ body {
 
   function startMelodicModulation(preset) {
     const mod = preset.modulation;
-    const baseLeftHz = preset.leftHz;
-    const baseRightHz = preset.rightHz;
+    const baseLeftHz = (preset.leftHz || 0) + MELODIC_LIFT;
+    const baseRightHz = (preset.rightHz || 0) + MELODIC_LIFT;
+    const evolution = preset.evolution;
+    const stereo = preset.stereo;
     let phase = 0;
+    let targetInterval = 1;
+    let currentInterval = 1;
+    let intervalBlend = 0;
+    let nextChangeAt = Date.now() + 4000;
+    let jitterSeed = Math.random() * 1000;
     
     melodicModulationInterval = setInterval(() => {
       if (!oscL || !oscR || !audioCtx) return;
       
       phase += mod.rate;
       let modValue = 0;
+      let evolutionMult = 1;
+      let stereoL = -1, stereoR = 1;
+      
+      // Calculate evolution interval multiplier with gentle unpredictability
+      if (evolution && evolution.intervals && evolution.intervals.length) {
+        const now = Date.now();
+        if (now >= nextChangeAt) {
+          // pick a new target interval different from current
+          const choices = evolution.intervals.filter(int => INTERVALS[int] && INTERVALS[int] !== targetInterval);
+          const pick = choices[Math.floor(Math.random() * choices.length)] || evolution.intervals[0];
+          targetInterval = INTERVALS[pick] || 1;
+          nextChangeAt = now + (evolution.cycleDuration * 1000 / (3 + Math.random() * 2)); // random segment length
+        }
+        // ease current interval toward target
+        currentInterval += (targetInterval - currentInterval) * 0.02;
+        // small jitter to avoid perfect predictability
+        const jitter = (Math.sin(phase * 0.37 + jitterSeed) + Math.sin(phase * 0.19 + jitterSeed)) * 0.003;
+        evolutionMult = currentInterval + jitter;
+      }
+      
+      // Calculate stereo panning
+      if (stereo && panL && panR) {
+        let panValue = 0;
+        switch(stereo.type) {
+          case 'gentle-sway':
+            panValue = Math.sin(phase * stereo.rate * 50) * stereo.depth;
+            break;
+          case 'wave':
+            panValue = Math.sin(phase * stereo.rate * 60) * stereo.depth;
+            break;
+          case 'rotate':
+            panValue = Math.sin(phase * stereo.rate * 80) * stereo.depth;
+            break;
+          case 'spiral':
+            panValue = Math.sin(phase * stereo.rate * 40 + Math.sin(phase * 0.1) * 2) * stereo.depth;
+            break;
+          case 'breath':
+            panValue = Math.sin(phase * stereo.rate * 30) * stereo.depth * (0.5 + 0.5 * Math.sin(phase * 0.2));
+            break;
+          case 'cascade':
+            panValue = (Math.sin(phase * stereo.rate * 70) + Math.sin(phase * stereo.rate * 35) * 0.5) * stereo.depth * 0.7;
+            break;
+          case 'pulse':
+            panValue = Math.sin(phase * stereo.rate * 25) * stereo.depth * Math.abs(Math.sin(phase * 0.3));
+            break;
+          case 'resonance':
+            panValue = Math.sin(phase * stereo.rate * 20) * stereo.depth * 0.5;
+            break;
+          default:
+            panValue = Math.sin(phase * stereo.rate * 50) * stereo.depth;
+        }
+        stereoL = Math.max(-1, Math.min(1, -0.8 + panValue));
+        stereoR = Math.max(-1, Math.min(1, 0.8 - panValue));
+        panL.pan.setValueAtTime(stereoL, audioCtx.currentTime);
+        panR.pan.setValueAtTime(stereoR, audioCtx.currentTime);
+      }
       
       switch(mod.type) {
         case 'gentle':
@@ -2886,18 +3261,52 @@ body {
         case 'minimal':
           modValue = Math.sin(phase) * mod.depth * 0.3;
           break;
+        // New evolving modulation types
+        case 'evolving':
+          modValue = Math.sin(phase) * mod.depth * (0.7 + 0.3 * Math.sin(phase * 0.15));
+          break;
+        case 'flowing':
+          modValue = (Math.sin(phase) + Math.sin(phase * 0.618) * 0.6) * mod.depth;
+          break;
+        case 'dance':
+          modValue = Math.sin(phase) * mod.depth + Math.sin(phase * 2.5) * mod.depth * 0.4;
+          break;
+        case 'bloom':
+          modValue = Math.sin(phase) * mod.depth * (0.5 + 0.5 * Math.pow(Math.sin(phase * 0.1), 2));
+          break;
+        case 'breath-cosmic':
+          modValue = Math.sin(phase * 0.5) * mod.depth * (1 + 0.5 * Math.sin(phase * 0.08));
+          break;
+        case 'shimmer-cascade':
+          modValue = (Math.sin(phase) * 0.6 + Math.sin(phase * 1.5) * 0.3 + Math.sin(phase * 2.5) * 0.1) * mod.depth;
+          break;
+        case 'heartbeat':
+          const heartPhase = phase * 1.2;
+          modValue = (Math.pow(Math.sin(heartPhase), 20) + Math.pow(Math.sin(heartPhase + 0.3), 20) * 0.6) * mod.depth;
+          break;
+        case 'bells':
+          modValue = Math.sin(phase * 0.3) * mod.depth * Math.exp(-((phase % 10) * 0.1));
+          break;
         default:
           modValue = Math.sin(phase) * mod.depth;
       }
       
-      // Apply modulation to frequencies
-      oscL.frequency.setValueAtTime(baseLeftHz + modValue, audioCtx.currentTime);
-      oscR.frequency.setValueAtTime(baseRightHz + modValue, audioCtx.currentTime);
+      // Apply modulation with evolution
+      const evolvedBaseHz = evolution ? (evolution.baseHz + MELODIC_LIFT) * evolutionMult : baseLeftHz;
+      const binaural = baseRightHz - baseLeftHz;
       
-      // Subtle modulation on harmonics too
+      if (evolution) {
+        oscL.frequency.setValueAtTime(evolvedBaseHz + modValue, audioCtx.currentTime);
+        oscR.frequency.setValueAtTime(evolvedBaseHz + binaural + modValue, audioCtx.currentTime);
+      } else {
+        oscL.frequency.setValueAtTime(baseLeftHz + modValue, audioCtx.currentTime);
+        oscR.frequency.setValueAtTime(baseRightHz + modValue, audioCtx.currentTime);
+      }
+      
+      // Modulation on harmonics
       melodicHarmonicOscs.forEach(({ osc, baseMult }) => {
-        const baseFreq = (baseLeftHz + baseRightHz) / 2;
-        osc.frequency.setValueAtTime(baseFreq * baseMult + modValue * baseMult * 0.5, audioCtx.currentTime);
+        const baseFreq = evolution ? evolvedBaseHz : (baseLeftHz + baseRightHz) / 2;
+        osc.frequency.setValueAtTime(baseFreq * baseMult + modValue * baseMult * 0.3, audioCtx.currentTime);
       });
       
     }, 50); // 20fps modulation
@@ -2908,6 +3317,7 @@ body {
       clearInterval(melodicModulationInterval);
       melodicModulationInterval = null;
     }
+    stopMelodicProgress();
     
     // Stop harmonic oscillators
     melodicHarmonicOscs.forEach(({ osc }) => {
@@ -2917,6 +3327,52 @@ body {
     
     // Remove playing class from melodic cards
     document.querySelectorAll('.melodic-card').forEach(c => c.classList.remove('playing'));
+  }
+
+  // Melodic progress display
+  function startMelodicProgress(cycleSeconds) {
+    melodicCycleSeconds = cycleSeconds;
+    melodicStartTime = Date.now();
+    const wrap = document.getElementById('melodicProgress');
+    const fill = document.getElementById('melodicProgressFill');
+    const elapsedEl = document.getElementById('melodicElapsed');
+    const totalEl = document.getElementById('melodicTotal');
+    if (wrap) wrap.classList.remove('hidden');
+    if (totalEl) totalEl.textContent = formatTime(cycleSeconds);
+
+    const update = () => {
+      if (!melodicStartTime) return;
+      const elapsedSec = Math.min((Date.now() - melodicStartTime) / 1000, cycleSeconds);
+      if (elapsedEl) elapsedEl.textContent = formatTime(elapsedSec);
+      const pct = Math.min(100, (elapsedSec / cycleSeconds) * 100);
+      if (fill) fill.style.width = `${pct}%`;
+      // Update card-level progress
+      if (currentPreset?.id) {
+        const cardFill = document.querySelector(`.melodic-card-progress-fill[data-progress="${currentPreset.id}"]`);
+        if (cardFill) cardFill.style.width = `${pct}%`;
+      }
+      if (elapsedSec >= cycleSeconds) melodicStartTime = Date.now(); // loop the display
+    };
+
+    update();
+    melodicProgressInterval = setInterval(update, 500);
+  }
+
+  function stopMelodicProgress() {
+    if (melodicProgressInterval) {
+      clearInterval(melodicProgressInterval);
+      melodicProgressInterval = null;
+    }
+    melodicStartTime = null;
+    const wrap = document.getElementById('melodicProgress');
+    const fill = document.getElementById('melodicProgressFill');
+    const elapsedEl = document.getElementById('melodicElapsed');
+    const totalEl = document.getElementById('melodicTotal');
+    if (wrap) wrap.classList.add('hidden');
+    if (fill) fill.style.width = '0%';
+    if (elapsedEl) elapsedEl.textContent = '00:00';
+    if (totalEl) totalEl.textContent = '00:00';
+    document.querySelectorAll('.melodic-card-progress-fill').forEach(el => el.style.width = '0%');
   }
 
   // Journey handling
