@@ -873,25 +873,49 @@ body {
 /* Floating Action Indicator */
 .headphones-reminder {
   position: fixed;
-  bottom: calc(100px + var(--safe-bottom));
+  top: calc(80px + var(--safe-top));
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(212, 175, 55, 0.15);
+  background: rgba(10, 10, 26, 0.95);
   border: 1px solid rgba(212, 175, 55, 0.3);
   border-radius: 20px;
-  padding: 8px 16px;
-  font-size: 11px;
+  padding: 10px 18px;
+  font-size: 12px;
   color: var(--accent-gold);
   display: flex;
   align-items: center;
-  gap: 6px;
-  z-index: 100;
-  animation: float-remind 3s ease-in-out infinite;
+  gap: 8px;
+  z-index: 200;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  cursor: pointer;
+  animation: slideDown 0.4s ease-out, fadeOut 0.5s ease-out 4s forwards;
 }
 
-@keyframes float-remind {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(-5px); }
+.headphones-reminder::after {
+  content: '×';
+  margin-left: 8px;
+  opacity: 0.5;
+  font-size: 14px;
+}
+
+@keyframes slideDown {
+  from { 
+    transform: translateX(-50%) translateY(-20px); 
+    opacity: 0;
+  }
+  to { 
+    transform: translateX(-50%) translateY(0); 
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  to { 
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
 }
 
 /* Bottom Navigation */
@@ -3428,17 +3452,24 @@ body {
     }
   }
 
-  // Hide headphones reminder after scroll
-  let reminderHidden = false;
-  document.querySelector('.presets-container').addEventListener('scroll', () => {
-    if (!reminderHidden) {
-      document.getElementById('headphonesReminder').style.opacity = '0';
+  // Hide headphones reminder on tap or after timeout
+  const headphonesReminder = document.getElementById('headphonesReminder');
+  
+  function hideReminder() {
+    if (headphonesReminder) {
+      headphonesReminder.style.opacity = '0';
+      headphonesReminder.style.transform = 'translateX(-50%) translateY(-20px)';
       setTimeout(() => {
-        document.getElementById('headphonesReminder').style.display = 'none';
+        headphonesReminder.style.display = 'none';
       }, 300);
-      reminderHidden = true;
     }
-  });
+  }
+  
+  // Tap to dismiss
+  headphonesReminder?.addEventListener('click', hideReminder);
+  
+  // Auto-hide after 5 seconds
+  setTimeout(hideReminder, 5000);
 
   // Load streak from localStorage
   function loadStreak() {
